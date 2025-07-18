@@ -108,7 +108,7 @@ export default function HomePage() {
 
           <h2 style={{ color: '#f8f1da' }}>
             <Typewriter
-              words={['Web Developer.', 'Frontend Engineer.', 'React Enthusiast.']}
+              words={['Software Engineer...', 'Problem Solver...', 'Michigan Wolverine...', 'Technology Explorer...'   ]}
               loop={true}
               cursor
               cursorStyle="|"
