@@ -66,7 +66,7 @@ export default function HomePage() {
     { Icon: BiLogoVisualStudio, label: 'VS Code', color: '#007396' }
   ];
 
-  const [showNav, setShowNav] = useState(false);
+  const [showNav, setShowNav] = useState(true);
 
   const handleToggle = () => {
     setShowNav(prev => !prev);
@@ -106,7 +106,7 @@ export default function HomePage() {
           </div>
           <h1>Prisha Swaroop</h1>
 
-          <h2 style={{ color: '#f8f1da' }}>
+          <h2 color =' #f8f1da;'>
             <Typewriter
               words={['Software Engineer...', 'Problem Solver...', 'Michigan Wolverine...', 'Technology Explorer...'   ]}
               loop={true}
@@ -226,6 +226,11 @@ export default function HomePage() {
               title="Weather App"
               description="A simple, responsive weather app built using HTML, CSS, and JS. Users can enter any city name and get real-time weather updates."
               githubUrl="https://github.com/prishasw007/Weather-App"
+            />
+            <ProjectCard
+              title="Rocket Science"
+              description ="This project simulates rocket trajectories using numerical methods to calculate velocity, height, and fuel optimization under varying conditions."
+              githubUrl= "https://github.com/prishasw007/Rocket-Science"
             />
             {/* Add more ProjectCard components here */}
           </div>
