@@ -66,7 +66,7 @@ export default function HomePage() {
     { Icon: BiLogoVisualStudio, label: 'VS Code', color: '#007396' }
   ];
 
-  const [showNav, setShowNav] = useState(true);
+  const [showNav, setShowNav] = useState(false);
 
   const handleToggle = () => {
     setShowNav(prev => !prev);

@@ -214,8 +214,8 @@ ul {
     display: block;
     position:absolute;
     top:0;
-    right:0;
-    z-index: 10002;
+    left:0;
+    z-index: 10011111;
     color: red;
   }
 }
@@ -479,26 +479,30 @@ ul {
 
 .skills-cards-container {
   display: flex;
-  flex-wrap: nowrap;
-  gap: 2rem;
+  flex-wrap: wrap;
   justify-content: center;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 1rem;
+  gap: 2rem;
+  margin-top: 2rem;
+  padding: 1rem;
 }
 
 .skill-card {
+  flex: 1 1 300px;
+  max-width: 300px;
   background-color: #1e1e2f;
-  border-radius: 12px;
-  padding: 2rem;
-  width: 480px;
-  color: #ddd;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
 }
+
+/* 📱 Only stack cards on small screens */
+@media (max-width: 600px) {
+  .skill-card {
+    width: 100%; /* Stack vertically only on small screens */
+  }
+}
+
 
 .skill-card:hover{
   transform: translateY(-8px);
