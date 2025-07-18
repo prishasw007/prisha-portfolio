@@ -56,7 +56,7 @@ export default function HomePage() {
 
   const techIcons = [
     { Icon: FaReact, label: 'React', color: '#007396' },
-    { Icon: FaNodeJs, label: 'Node.js', color: '#007396' }, 
+    { Icon: FaNodeJs, label: 'Node.js', color: '#007396' },
     { Icon: FaUnity, label: 'Unity', color: '#007396' },
     { Icon: SiUnrealengine, label: 'Unreal Engine', color: '#007396' }
   ];
@@ -158,8 +158,8 @@ export default function HomePage() {
               <div className="flip-card-inner">
                 <div className="flip-card-front">
                   <div className="logo-and-title">
-                  <img src="./Xoxoday_Logo.jpg" alt="Xoxoday logo" className="company-logo" />
-                  <h3>Xoxoday</h3>
+                    <img src="./Xoxoday_Logo.jpg" alt="Xoxoday logo" className="company-logo" />
+                    <h3>Xoxoday</h3>
                   </div>
                   <p>Full Stack Web Development Intern</p>
                   <p>🏢 Bengaluru, India</p> {/* Add real location or emoji */}
@@ -176,8 +176,8 @@ export default function HomePage() {
               <div className="flip-card-inner">
                 <div className="flip-card-front">
                   <div className="logo-and-title">
-                  <img src="./maizetix.png" alt="MaizeTix logo" className="company-logo" />
-                  <h3>MaizeTix</h3>
+                    <img src="./maizetix.png" alt="MaizeTix logo" className="company-logo" />
+                    <h3>MaizeTix</h3>
                   </div>
                   <p>Software Developer</p>
                   <p>🏢 Ann Arbor, MI</p> {/* Add real location or emoji */}
@@ -194,8 +194,8 @@ export default function HomePage() {
               <div className="flip-card-inner">
                 <div className="flip-card-front">
                   <div className="logo-and-title">
-                  <img src="./lotus.png" alt="Lotus Petal Foundation logo" className="company-logo" />
-                  <h3>Lotus Petal Foundation</h3>
+                    <img src="./lotus.png" alt="Lotus Petal Foundation logo" className="company-logo" />
+                    <h3>Lotus Petal Foundation</h3>
                   </div>
                   <p>Campaign Manager</p>
                   <p>🏢 Bengaluru, India</p> {/* Add real location or emoji */}
@@ -241,6 +241,9 @@ export default function HomePage() {
             <SkillCard title="Technologies & Frameworks" icons={techIcons} />
             <SkillCard title="Developer Tools" icons={toolsIcons} />
           </div>
+          <button className="home-button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Scroll to top">
+            Back to Top
+          </button>
         </section>
       </main>
     </>

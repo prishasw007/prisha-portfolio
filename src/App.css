@@ -550,3 +550,25 @@ ul {
   transition: opacity 0.4s ease;
 }
 
+.home-button {
+  background: linear-gradient(90deg, #836fe9, #2f99e4, rgb(203, 83, 237));
+  color: white;
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background 0.3s ease, transform 0.3s ease;
+  margin-top: 2rem;
+  width: max-content; /* so button width fits content */
+  bottom: 20px;
+  right: 20px;
+}
+
+.home-button:hover,
+.home-button:focus {
+  outline: none;
+  background: linear-gradient(90deg, #2f99e4, #836fe9, rgb(203, 83, 237));
+  transform: scale(1.05);
+}
