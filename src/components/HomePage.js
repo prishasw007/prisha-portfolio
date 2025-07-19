@@ -29,14 +29,15 @@ function SkillCard({ title, icons }) {
 }
 
 
-function ProjectCard({ title, description, githubUrl }) {
+function ProjectCard({ title, description, githubUrl, text }) {
   return (
     <div className="project-card">
       <h3>{title}</h3>
       <p>{description}</p>
       <a href={githubUrl} target="_blank" rel="noopener noreferrer" className="btn-github" aria-label={`GitHub repository for ${title}`}>
         <FaGithub size={20} />
-      </a>
+      </a><br></br>
+      <p>{text}</p>
     </div>
   );
 }
@@ -221,16 +222,19 @@ export default function HomePage() {
               title=" WonderToon - AI Image Generator"
               description="An AI-powered image generation web app built for AWS Hackathon 2025. This project integrates multiple AI services to create and enhance images based on user prompts."
               githubUrl="https://github.com/prishasw007/AWS-Hackathon-2025"
+              text="React.js | HTML | CSS | JavaScript | Google AI, OpenAI & Stability AI API"
             />
             <ProjectCard
               title="Weather App"
               description="A simple, responsive weather app built using HTML, CSS, and JS. Users can enter any city name and get real-time weather updates."
               githubUrl="https://github.com/prishasw007/Weather-App"
+              text="React.js | HTML | CSS | JavaScript | OpenWeather API"
             />
             <ProjectCard
               title="Rocket Science"
               description ="This project simulates rocket trajectories using numerical methods to calculate velocity, height, and fuel optimization under varying conditions."
               githubUrl= "https://github.com/prishasw007/Rocket-Science"
+              text="C++"
             />
             {/* Add more ProjectCard components here */}
           </div>
