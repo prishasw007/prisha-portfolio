@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { FaGithub, FaLinkedin, FaEnvelope, FaTimes, FaJsSquare, FaReact, FaNodeJs, FaGitAlt, FaJava, FaPython, } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { FaGithub, FaLinkedin, FaEnvelope, FaTimes, FaJsSquare, FaReact, FaNodeJs, FaGitAlt, FaJava, FaPython, FaSun, FaMoon, FaArrowAltCircleUp } from 'react-icons/fa';
 import { TbBrandCSharp } from "react-icons/tb";
 import { BiLogoVisualStudio } from "react-icons/bi";
 import { SiCplusplus, SiHtml5, SiCss3, SiUnrealengine } from 'react-icons/si';
 import { FaUnity } from "react-icons/fa6";
 import { Typewriter } from 'react-simple-typewriter';
+
 
 function SkillCard({ title, icons }) {
   return (
@@ -44,6 +45,26 @@ function ProjectCard({ title, description, githubUrl, text }) {
 
 export default function HomePage() {
 
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 200) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+
   const languageIcons = [
     { Icon: FaJsSquare, label: 'JavaScript', color: '#007396' },
     { Icon: FaJava, label: 'Java', color: '#007396' },
@@ -67,6 +88,33 @@ export default function HomePage() {
     { Icon: BiLogoVisualStudio, label: 'VS Code', color: '#007396' }
   ];
 
+  const [darkMode, setDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setDarkMode(prev => !prev);
+  };
+
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formStatus, setFormStatus] = useState('');
+
+  const handleInputChange = e => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    if (!formData.name || !formData.email || !formData.message) {
+      setFormStatus('Please fill all fields.');
+      return;
+    }
+
+    console.log('Contact form submitted:', formData);
+    setFormStatus('Thank you for your message!');
+    setFormData({ name: '', email: '', message: '' });
+
+  };
+
   const [showNav, setShowNav] = useState(true);
 
   const handleToggle = () => {
@@ -80,36 +128,49 @@ export default function HomePage() {
         <title>Prisha Swaroop</title>
       </header>
 
-      <main className="container" role="main">
+      <main className={`container ${darkMode ? 'dark-mode' : 'light-mode'}`} role="main">
         <section id="hero" aria-label="Introduction">
           <div className="nav-container">
-            {/* Show toggle button only on small screens via CSS */}
-            {
-              !showNav && (
-                <button className="nav-toggle" aria-label="Toggle navigation" onClick={handleToggle}>
-                  &#9776;
-                </button>
-              )
-            }
-            <nav className={`${showNav ? 'nav-links show' : 'hide'}`}>
-              <a href="#about" >About</a>
-              <a href="#experiences">Experience</a>
-              <a href="#projects">Projects</a>
-              <a href="#skills">Skills</a>
-            </nav>
-            {
-              showNav && (
-                <button className="close-button" aria-label="Toggle navigation" onClick={handleToggle}>
-                  <FaTimes />
-                </button>
-              )
-            }
+            <div className="left-buttons">
+              {/* Show toggle button only on small screens via CSS */}
+              {
+                !showNav && (
+                  <button className="nav-toggle" aria-label="Toggle navigation" onClick={handleToggle}>
+                    &#9776;
+                  </button>
+                )
+              }
+              <nav className={`${showNav ? 'nav-links show' : 'hide'}`}>
+                <a href="#about" >About</a>
+                <a href="#experiences">Experience</a>
+                <a href="#projects">Projects</a>
+                <a href="#skills">Skills</a>
+                <a href="#contact">Contact Me</a>
+              </nav>
+              {
+                showNav && (
+                  <button className="close-button" aria-label="Toggle navigation" onClick={handleToggle}>
+                    <FaTimes />
+                  </button>
+                )
+              }
+            </div>
+            <div className="right-buttons">
+              <button
+                aria-label="Toggle dark mode"
+                onClick={toggleDarkMode}
+                className="dark-mode-toggle"
+                title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              >
+                {darkMode ? <FaSun size={30} /> : <FaMoon size={30} />}
+              </button>
+            </div>
           </div>
           <h1>Prisha Swaroop</h1>
 
-          <h2 color =' #f8f1da;'>
+          <h2 color=' #f8f1da;'>
             <Typewriter
-              words={['Software Engineer...', 'Problem Solver...', 'Michigan Wolverine...', 'Technology Explorer...'   ]}
+              words={['AAAA', 'AAAA', 'AAAA', 'AAAA']}
               loop={true}
               cursor
               cursorStyle="|"
@@ -130,7 +191,7 @@ export default function HomePage() {
             </a>
           </div>
         </section>
-        <div class="section-divider"></div>
+        <div className="section-divider"></div>
 
         {/* About Section */}
         <section id="about" className="about-section">
@@ -149,7 +210,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <div class="section-divider"></div>
+        <div className="section-divider"></div>
 
         {/*Experience*/}
         <section id="experiences" className="experience-section">
@@ -212,7 +273,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <div class="section-divider"></div>
+        <div className="section-divider"></div>
 
         {/* Projects Section */}
         <section id="projects" className="project-section">
@@ -232,15 +293,15 @@ export default function HomePage() {
             />
             <ProjectCard
               title="Rocket Science"
-              description ="This project simulates rocket trajectories using numerical methods to calculate velocity, height, and fuel optimization under varying conditions."
-              githubUrl= "https://github.com/prishasw007/Rocket-Science"
+              description="This project simulates rocket trajectories using numerical methods to calculate velocity, height, and fuel optimization under varying conditions."
+              githubUrl="https://github.com/prishasw007/Rocket-Science"
               text="C++"
             />
             {/* Add more ProjectCard components here */}
           </div>
         </section>
 
-        <div class="section-divider"></div>
+        <div className="section-divider"></div>
 
         {/* Skills Section */}
         <section id="skills" className="skill-section">
@@ -250,10 +311,57 @@ export default function HomePage() {
             <SkillCard title="Technologies & Frameworks" icons={techIcons} />
             <SkillCard title="Developer Tools" icons={toolsIcons} />
           </div>
-          <button className="home-button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Scroll to top">
-            Back to Top
-          </button>
         </section>
+
+        {/* Contact Section */}
+        <section id="contact" className="contact-section">
+          <h2>Contact Me</h2>
+          <div className="contact-form-container">
+            <form onSubmit={handleSubmit} className="contact-form">
+              <label htmlFor="name">Name</label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                value={formData.name}
+                onChange={handleInputChange}
+                required
+              />
+
+              <label htmlFor="email">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                required
+              />
+
+              <label htmlFor="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                value={formData.message}
+                onChange={handleInputChange}
+                required
+              ></textarea>
+
+              <button type="submit" className="btn-submit">
+                Send Message
+              </button>
+            </form>
+            {formStatus && <p>{formStatus}</p>}
+
+          </div>
+        </section>
+        {showScrollTop && (
+          <button className="home-button" onClick={scrollToTop} aria-label="Scroll to top" style={{ background: "none" }}>
+            <FaArrowAltCircleUp color='white' />
+          </button>
+        )}
+
       </main>
     </>
   );
