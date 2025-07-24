@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FaGithub, FaLinkedin, FaEnvelope, FaTimes, FaJsSquare, FaReact, FaNodeJs, FaGitAlt, FaJava, FaPython, FaSun, FaMoon, FaArrowAltCircleUp } from 'react-icons/fa';
 import { TbBrandCSharp } from "react-icons/tb";
 import { BiLogoVisualStudio } from "react-icons/bi";
-import { SiCplusplus, SiHtml5, SiCss3, SiUnrealengine } from 'react-icons/si';
+import { SiCplusplus, SiHtml5, SiCss3, SiUnrealengine, SiTailwindcss, SiMui } from 'react-icons/si';
 import { FaUnity } from "react-icons/fa6";
 import { Typewriter } from 'react-simple-typewriter';
 import ExperienceCard from './ExperienceCard';
@@ -82,7 +82,9 @@ export default function HomePage() {
     { Icon: FaReact, label: 'React', color: '#007396' },
     { Icon: FaNodeJs, label: 'Node.js', color: '#007396' },
     { Icon: FaUnity, label: 'Unity', color: '#007396' },
-    { Icon: SiUnrealengine, label: 'Unreal Engine', color: '#007396' }
+    { Icon: SiUnrealengine, label: 'Unreal Engine', color: '#007396' },
+    { Icon: SiMui , label: 'MUI', color:'#007396'},
+    { Icon: SiTailwindcss, label: 'Tailwind CSS', color:'#007396'}
   ];
 
   const toolsIcons = [
@@ -317,7 +319,7 @@ export default function HomePage() {
               }}
             >
               <Typewriter
-                words={['AAAA', 'AAAA', 'AAAA', 'AAAA']}
+                words={['Software Engineer', 'Michigan Wolverine', 'Problem Solver', 'Builder']}
                 loop={true}
                 cursor
                 cursorStyle="|"
