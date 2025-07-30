@@ -34,8 +34,8 @@ const FlipCardInner = styled(Box)({
 // Front and back sides
 const FlipCardFront = styled(Card)({
   position: 'absolute',
-  width: '300px',
-  height: '400px',
+  width: '18.75rem',
+  height: '25rem',
   backfaceVisibility: 'hidden',
   backgroundColor: '#1e1e2f',
   borderRadius: 8,
@@ -47,8 +47,8 @@ const FlipCardFront = styled(Card)({
 
 const FlipCardBack = styled(Card)({
   position: 'absolute',
-  width: '300px',
-  height: '400px',
+  width: '18.75rem',
+  height: '25rem',
   backfaceVisibility: 'hidden',
   backgroundColor: '#1e1e2f',
   borderRadius: 8,
