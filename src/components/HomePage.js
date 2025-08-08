@@ -31,63 +31,111 @@ import Button from "./Button";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import InfoCard from "./InfoCard";
 import { Box, Typography, Stack } from "@mui/material";
+import axios from "axios";
+import IconRenderer from "./IconRenderer";
 
 export default function HomePage() {
   const isMobile = useMediaQuery("(max-width:768px)");
 
-  const experiences = [
-    {
-      company: "Xoxoday",
-      logo: "./Xoxoday_Logo.jpg",
-      role: "Full Stack Web Development Intern",
-      location: "Bengaluru, India",
-      duration: "June 2025 – Present",
-      description:
-        "Building and scaling Loyalife through full-stack development using React, Node.js, and Express.",
-    },
-    {
-      company: "MaizeTix",
-      logo: "./maizetix.png",
-      role: "Software Developer",
-      location: "Ann Arbor, MI",
-      duration: "Jan 2025 – Present",
-      description:
-        "Built full-stack ticketing app MaizeTix with APIs, PostgreSQL, Stripe, and automated microservices integration.",
-    },
-    {
-      company: "Lotus Petal Foundation",
-      logo: "./lotus.png",
-      role: "Campaign Manager",
-      location: "Bengaluru, India",
-      duration: "May 2023 – Dec 2023",
-      description:
-        "Led the “Pad for Every Girl” campaign at Lotus Petal, raising $1700+ and promoting menstrual hygiene awareness in rural parts of Bengaluru.",
-    },
-  ];
-  const projects = [
-    {
-      title: "WonderToon",
-      description:
-        "An AI-powered image generation web app built for AWS Hackathon 2025. This project integrates multiple AI services to create and enhance images based on user prompts.",
-      githubUrl: "https://github.com/prishasw007/AWS-Hackathon-2025",
-      websiteUrl: "https://your-backend-4r1z.onrender.com",
-      text: "React.js | HTML | CSS | JavaScript | Google AI, OpenAI & Stability AI API",
-    },
-    {
-      title: "Weather App",
-      description:
-        "A simple, responsive weather app built using HTML, CSS, and JS. Users can enter any city name and get real-time weather updates.",
-      githubUrl: "https://github.com/prishasw007/Weather-App",
-      text: "React.js | HTML | CSS | JavaScript | OpenWeather API",
-    },
-    {
-      title: "Rocket Science",
-      description:
-        "This project simulates rocket trajectories using numerical methods to calculate velocity, height, and fuel optimization under varying conditions.",
-      githubUrl: "https://github.com/prishasw007/Rocket-Science",
-      text: "C++",
-    },
-  ];
+  const [experiences, setExperiences] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/Experiences') // or your deployed URL
+      .then(response => setExperiences(response.data))
+      .catch(error => console.error(error));
+  }, []);
+
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/Projects') // or your deployed URL
+      .then(response => setProjects(response.data))
+      .catch(error => console.error(error));
+  }, []);
+
+  const [skills, setSkills] = useState({
+    Languages: [],
+    "Frameworks and Technologies": [],
+    "Developer Tools": [],
+  });
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/Skills")
+      .then((res) => {
+        const grouped = {
+          Languages: [],
+          "Frameworks and Technologies": [],
+          "Developer Tools": [],
+        };
+
+        res.data.forEach((skill) => {
+          if (grouped[skill.category]) {
+            grouped[skill.category].push(skill);
+          }
+        });
+
+        setSkills(grouped);
+      })
+      .catch((error) => {
+        console.error("Error fetching skills:", error);
+      });
+  }, []);
+
+
+  // const experiences = [
+  //   {
+  //     company: "Xoxoday",
+  //     logo: "./Xoxoday_Logo.jpg",
+  //     role: "Full Stack Web Development Intern",
+  //     location: "Bengaluru, India",
+  //     duration: "June 2025 – Present",
+  //     description:
+  //       "Building and scaling Loyalife through full-stack development using React, Node.js, and Express.",
+  //   },
+  //   {
+  //     company: "MaizeTix",
+  //     logo: "./maizetix.png",
+  //     role: "Software Developer",
+  //     location: "Ann Arbor, MI",
+  //     duration: "Jan 2025 – Present",
+  //     description:
+  //       "Built full-stack ticketing app MaizeTix with APIs, PostgreSQL, Stripe, and automated microservices integration.",
+  //   },
+  //   {
+  //     company: "Lotus Petal Foundation",
+  //     logo: "./lotus.png",
+  //     role: "Campaign Manager",
+  //     location: "Bengaluru, India",
+  //     duration: "May 2023 – Dec 2023",
+  //     description:
+  //       "Led the “Pad for Every Girl” campaign at Lotus Petal, raising $1700+ and promoting menstrual hygiene awareness in rural parts of Bengaluru.",
+  //   },
+  // ];
+  // const projects = [
+  //   {
+  //     title: "WonderToon",
+  //     description:
+  //       "An AI-powered image generation web app built for AWS Hackathon 2025. This project integrates multiple AI services to create and enhance images based on user prompts.",
+  //     githubUrl: "https://github.com/prishasw007/AWS-Hackathon-2025",
+  //     websiteUrl: "https://your-backend-4r1z.onrender.com",
+  //     text: "React.js | HTML | CSS | JavaScript | Google AI, OpenAI & Stability AI API",
+  //   },
+  //   {
+  //     title: "Weather App",
+  //     description:
+  //       "A simple, responsive weather app built using HTML, CSS, and JS. Users can enter any city name and get real-time weather updates.",
+  //     githubUrl: "https://github.com/prishasw007/Weather-App",
+  //     text: "React.js | HTML | CSS | JavaScript | OpenWeather API",
+  //   },
+  //   {
+  //     title: "Rocket Science",
+  //     description:
+  //       "This project simulates rocket trajectories using numerical methods to calculate velocity, height, and fuel optimization under varying conditions.",
+  //     githubUrl: "https://github.com/prishasw007/Rocket-Science",
+  //     text: "C++",
+  //   },
+  // ];
 
   const languageIcons = [
     { Icon: FaJsSquare, label: "JavaScript", color: "#007396" },
@@ -607,15 +655,30 @@ export default function HomePage() {
           </Typography>
 
           <Box className="flex flex-wrap justify-center gap-8 p-4 max-w-full">
-            {skillSections.map(({ title, icons }) => (
+            {/* Loop through each category */}
+            {Object.entries(skills).map(([category, skillArray]) => (
               <InfoCard
-                key={title}
-                title={title}
-                icons={icons}
+                key={category}
+                title={category}   // Category is the card title
+                icons={skillArray.map(({ name, iconName, logoUrl }) => ({
+                  Icon: logoUrl
+                    ? () => (
+                      <img
+                        src={logoUrl}
+                        alt={name}
+                        style={{ width: 48, height: 48, objectFit: "contain" }}
+                      />
+                    )
+                    : () => <IconRenderer iconName={iconName} />,
+                  label: name,
+                  color: "#f8f1da",
+                }))}
                 isProject={false}
               />
             ))}
+
           </Box>
+
         </Box>
 
         <Box className="w-20 h-0.5 my-8 mx-auto bg-white/30 rounded transition-opacity duration-400" />
