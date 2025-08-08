@@ -14,8 +14,8 @@ html {
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  background: linear-gradient(120deg, #5b0ecf, #386be4, rgb(131, 10, 186));
-  background-size: 200% 200%;
+  background: linear-gradient(270deg, rgb(131, 10, 186), #5b0ecf,#386be4);
+  background-size: 100% 100%;
   animation: calmGradient 20s ease infinite;
 }
 
