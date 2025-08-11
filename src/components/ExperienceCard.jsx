@@ -1,4 +1,3 @@
-// ExperienceCard.jsx
 import React from 'react';
 import { Box, Card, Typography, Avatar } from '@mui/material';
 import { styled } from '@mui/system';
@@ -42,7 +41,9 @@ const FlipCardFront = styled(Card)({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
+  alignItems: 'center',    // Center horizontally
   padding: '1rem',
+  gap: '0.5rem',           // Spacing between avatar and texts
 });
 
 const FlipCardBack = styled(Card)({
@@ -59,30 +60,56 @@ const FlipCardBack = styled(Card)({
   justifyContent: 'center',
 });
 
-function ExperienceCard({ company, logo, role, location, duration, description }) {
+function ExperienceCard({ companyName, logo, jobTitle, location, duration, description }) {
   return (
     <FlipCard>
       <FlipCardInner className="flip-card-inner">
         <FlipCardFront>
           <Avatar
-            alt={`${company} logo`}
+            alt={`${companyName} logo`}
             src={logo}
-            sx={{ width: 56, height: 56, margin: '0 auto 1rem auto' }}
+            sx={{ width: 56, height: 56, marginBottom: '1rem' }}
             variant="square"
           />
-          <Typography fontFamily= "'Merriweather', serif" variant="h4" gutterBottom color="#f8f1da">
-            {company}
+          <Typography
+            fontFamily="'Merriweather', serif"
+            variant="h4"
+            gutterBottom
+            color="#f8f1da"
+          >
+            {companyName}
           </Typography>
-          <Typography fontFamily= "'Merriweather', serif" variant="h5" color="#f8f1da">{role}</Typography>
-          <Typography fontFamily= "'Merriweather', serif" variant="h6" color="#f8f1da">
+          <Typography
+            fontFamily="'Merriweather', serif"
+            variant="h5"
+            sx={{ mb: 1 }}
+            color="#f8f1da"
+          >
+            {jobTitle}
+          </Typography>
+          <Typography
+            fontFamily="'Merriweather', serif"
+            variant="h6"
+            color="#f8f1da"
+          >
             🏢 {location}
           </Typography>
-          <Typography fontFamily= "'Merriweather', serif" variant="h6" color="#f8f1da">
+          <Typography
+            fontFamily="'Merriweather', serif"
+            variant="h6"
+            color="#f8f1da"
+          >
             📅 {duration}
           </Typography>
         </FlipCardFront>
         <FlipCardBack>
-          <Typography fontFamily= "'Merriweather', serif" variant="h5" color="#f8f1da">{description}</Typography>
+          <Typography
+            fontFamily="'Merriweather', serif"
+            variant="h5"
+            color="#f8f1da"
+          >
+            {description}
+          </Typography>
         </FlipCardBack>
       </FlipCardInner>
     </FlipCard>

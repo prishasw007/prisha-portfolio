@@ -14,17 +14,17 @@ import {
   FaMoon,
   FaArrowAltCircleUp,
 } from "react-icons/fa";
-import { TbBrandCSharp } from "react-icons/tb";
-import { BiLogoVisualStudio } from "react-icons/bi";
-import {
-  SiCplusplus,
-  SiHtml5,
-  SiCss3,
-  SiUnrealengine,
-  SiTailwindcss,
-  SiMui,
-} from "react-icons/si";
-import { FaUnity } from "react-icons/fa6";
+// import { TbBrandCSharp } from "react-icons/tb";
+// import { BiLogoVisualStudio } from "react-icons/bi";
+// import {
+//   SiCplusplus,
+//   SiHtml5,
+//   SiCss3,
+//   SiUnrealengine,
+//   SiTailwindcss,
+//   SiMui,
+// } from "react-icons/si";
+// import { FaUnity } from "react-icons/fa6";
 import { Typewriter } from "react-simple-typewriter";
 import ExperienceCard from "./ExperienceCard";
 import Button from "./Button";
@@ -37,28 +37,65 @@ import IconRenderer from "./IconRenderer";
 export default function HomePage() {
   const isMobile = useMediaQuery("(max-width:768px)");
 
+  const [accountSettings, setAccountSettings] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const [aboutMe, setAboutMe] = useState(null);
   const [experiences, setExperiences] = useState([]);
-
-  useEffect(() => {
-    axios.get('http://localhost:5000/api/Experiences') // or your deployed URL
-      .then(response => setExperiences(response.data))
-      .catch(error => console.error(error));
-  }, []);
-
   const [projects, setProjects] = useState([]);
-
-  useEffect(() => {
-    axios.get('http://localhost:5000/api/Projects') // or your deployed URL
-      .then(response => setProjects(response.data))
-      .catch(error => console.error(error));
-  }, []);
-
   const [skills, setSkills] = useState({
     Languages: [],
     "Frameworks and Technologies": [],
     "Developer Tools": [],
   });
 
+  // Fetch account settings
+  useEffect(() => {
+    const fetchAccountSettings = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:5000/api/AccountSettings"
+        );
+        if (res.data.length > 0) {
+          setAccountSettings(res.data[0]);
+        }
+        setLoading(false);
+      } catch (err) {
+        setError("Failed to load account settings");
+        setLoading(false);
+      }
+    };
+    fetchAccountSettings();
+  }, []);
+
+  // Fetch aboutMe
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/AboutMe")
+      .then((res) => {
+        setAboutMe(res.data[0] || null);
+      })
+      .catch((err) => console.error("Failed to load AboutMe:", err));
+  }, []);
+
+  // Fetch experiences
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/Experiences")
+      .then((response) => setExperiences(response.data))
+      .catch((error) => console.error(error));
+  }, []);
+
+  // Fetch projects
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/Projects")
+      .then((response) => setProjects(response.data))
+      .catch((error) => console.error(error));
+  }, []);
+
+  // Fetch skills
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/Skills")
@@ -68,20 +105,17 @@ export default function HomePage() {
           "Frameworks and Technologies": [],
           "Developer Tools": [],
         };
-
         res.data.forEach((skill) => {
           if (grouped[skill.category]) {
             grouped[skill.category].push(skill);
           }
         });
-
         setSkills(grouped);
       })
       .catch((error) => {
         console.error("Error fetching skills:", error);
       });
   }, []);
-
 
   // const experiences = [
   //   {
@@ -137,43 +171,43 @@ export default function HomePage() {
   //   },
   // ];
 
-  const languageIcons = [
-    { Icon: FaJsSquare, label: "JavaScript", color: "#007396" },
-    { Icon: FaJava, label: "Java", color: "#007396" },
-    { Icon: FaPython, label: "Python", color: "#007396" },
-    { Icon: SiCplusplus, label: "C++", color: "#007396" },
-    { Icon: TbBrandCSharp, label: "C#", color: "#007396" },
-    { Icon: SiHtml5, label: "HTML", color: "#007396" },
-    { Icon: SiCss3, label: "CSS", color: "#007396" },
-    // add more languages here if you want
-  ];
+  // const languageIcons = [
+  //   { Icon: FaJsSquare, label: "JavaScript", color: "#007396" },
+  //   { Icon: FaJava, label: "Java", color: "#007396" },
+  //   { Icon: FaPython, label: "Python", color: "#007396" },
+  //   { Icon: SiCplusplus, label: "C++", color: "#007396" },
+  //   { Icon: TbBrandCSharp, label: "C#", color: "#007396" },
+  //   { Icon: SiHtml5, label: "HTML", color: "#007396" },
+  //   { Icon: SiCss3, label: "CSS", color: "#007396" },
+  //   // add more languages here if you want
+  // ];
 
-  const techIcons = [
-    { Icon: FaReact, label: "React", color: "#007396" },
-    { Icon: FaNodeJs, label: "Node.js", color: "#007396" },
-    { Icon: FaUnity, label: "Unity", color: "#007396" },
-    { Icon: SiUnrealengine, label: "Unreal Engine", color: "#007396" },
-    { Icon: SiMui, label: "MUI", color: "#007396" },
-    { Icon: SiTailwindcss, label: "Tailwind CSS", color: "#007396" },
-  ];
+  // const techIcons = [
+  //   { Icon: FaReact, label: "React", color: "#007396" },
+  //   { Icon: FaNodeJs, label: "Node.js", color: "#007396" },
+  //   { Icon: FaUnity, label: "Unity", color: "#007396" },
+  //   { Icon: SiUnrealengine, label: "Unreal Engine", color: "#007396" },
+  //   { Icon: SiMui, label: "MUI", color: "#007396" },
+  //   { Icon: SiTailwindcss, label: "Tailwind CSS", color: "#007396" },
+  // ];
 
-  const toolsIcons = [
-    { Icon: FaGitAlt, label: "Git", color: "#007396" },
-    { Icon: BiLogoVisualStudio, label: "VS Code", color: "#007396" },
-  ];
+  // const toolsIcons = [
+  //   { Icon: FaGitAlt, label: "Git", color: "#007396" },
+  //   { Icon: BiLogoVisualStudio, label: "VS Code", color: "#007396" },
+  // ];
 
-  const skillSections = [
-    { title: "Languages", icons: languageIcons },
-    { title: "Technologies & Frameworks", icons: techIcons },
-    { title: "Developer Tools", icons: toolsIcons },
-  ];
+  // const skillSections = [
+  //   { title: "Languages", icons: languageIcons },
+  //   { title: "Technologies & Frameworks", icons: techIcons },
+  //   { title: "Developer Tools", icons: toolsIcons },
+  // ];
 
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
     console.log("useEffect running: attaching scroll listener");
     const handleScroll = () => {
-      console.log("Scroll Y:", window.scrollY);
+      // console.log("Scroll Y:", window.scrollY);
       if (window.scrollY > 200) {
         setShowScrollTop(true);
       } else {
@@ -206,7 +240,7 @@ export default function HomePage() {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!formData.name || !formData.email || !formData.message) {
@@ -214,16 +248,38 @@ export default function HomePage() {
       return;
     }
 
-    console.log("Contact form submitted:", formData);
-    setFormStatus("Thank you for your message!");
-    setFormData({ name: "", email: "", message: "" });
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/ContactMessages",
+        formData
+      );
+      if (response.status === 201) {
+        setFormStatus("Thank you for your message!");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        setFormStatus("Something went wrong. Please try again later.");
+      }
+    } catch (error) {
+      console.error("Error sending message:", error);
+      setFormStatus("Error sending message. Please try again later.");
+    }
   };
-
   const [showNav, setShowNav] = useState(true);
 
   const handleToggle = () => {
     setShowNav((prev) => !prev);
   };
+
+  const typewriterWords = accountSettings?.typewriterWords
+    ? accountSettings.typewriterWords.split(",").map((word) => word.trim())
+    : ["Software Engineer", "Michigan Wolverine", "Problem Solver", "Builder"];
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <>
@@ -444,7 +500,7 @@ export default function HomePage() {
                 mt: "120px",
               }}
             >
-              Prisha Swaroop
+              {accountSettings?.name}
             </Typography>
             <Typography
               variant="h2"
@@ -460,12 +516,7 @@ export default function HomePage() {
               }}
             >
               <Typewriter
-                words={[
-                  "Software Engineer",
-                  "Michigan Wolverine",
-                  "Problem Solver",
-                  "Builder",
-                ]}
+                words={typewriterWords}
                 loop={true}
                 cursor
                 cursorStyle="|"
@@ -478,37 +529,42 @@ export default function HomePage() {
 
           {/* Social Icons */}
           <Box
-            className="icons"
             sx={{ display: "flex", justifyContent: "center", gap: 4, mt: 4 }}
           >
-            <a
-              href="mailto:pswaroop@umich.edu"
-              aria-label="Email"
-              title="Email"
-              className="transition duration-300 ease-in-out hover:text-[#836fe9] hover:scale-[1.05] text-[#f8f1da]"
-            >
-              <FaEnvelope size={50} />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/prisha-swaroop-85090b275/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-              title="LinkedIn"
-              className="transition duration-300 ease-in-out hover:text-[#836fe9] hover:scale-[1.05] text-[#f8f1da]"
-            >
-              <FaLinkedin size={50} />
-            </a>
-            <a
-              href="https://github.com/prishasw007"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub"
-              title="GitHub"
-              className="transition duration-300 ease-in-out hover:text-[#836fe9] hover:scale-[1.05] text-[#f8f1da]"
-            >
-              <FaGithub size={50} />
-            </a>
+            {accountSettings?.email && (
+              <a
+                href={`mailto:${accountSettings.email}`}
+                aria-label="Email"
+                title="Email"
+                className="transition duration-300 ease-in-out hover:text-[#836fe9] hover:scale-[1.05] text-[#f8f1da]"
+              >
+                <FaEnvelope size={50} />
+              </a>
+            )}
+            {accountSettings?.linkedin && (
+              <a
+                href={accountSettings.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                title="LinkedIn"
+                className="transition duration-300 ease-in-out hover:text-[#836fe9] hover:scale-[1.05] text-[#f8f1da]"
+              >
+                <FaLinkedin size={50} />
+              </a>
+            )}
+            {accountSettings?.github && (
+              <a
+                href={accountSettings.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+                title="GitHub"
+                className="transition duration-300 ease-in-out hover:text-[#836fe9] hover:scale-[1.05] text-[#f8f1da]"
+              >
+                <FaGithub size={50} />
+              </a>
+            )}
           </Box>
         </Box>
 
@@ -547,7 +603,7 @@ export default function HomePage() {
             {/* Image on the left */}
             <Box
               component="img"
-              src="./photo1.jpeg"
+              src={aboutMe?.logo || "./photo1.jpeg"}
               alt="Prisha Swaroop"
               className="w-full max-w-xs rounded-xl border-4 border-black shadow-lg"
               sx={{ alignSelf: { xs: "center", md: "flex-start" } }}
@@ -557,6 +613,7 @@ export default function HomePage() {
             <Typography
               component="p"
               sx={{
+                whiteSpace: "pre-line",
                 fontSize: "1.3rem", // exactly 1.3 rem = 20.8px
                 fontWeight: "bold", // font-weight: bold
                 fontFamily: "'Montserrat', sans-serif", // font family as in your CSS
@@ -565,15 +622,7 @@ export default function HomePage() {
                 marginBottom: "3rem", // margin-bottom: 3rem
               }}
             >
-              Hey I'm Prisha,
-              <br />
-              I'm a Computer Science student at the University of Michigan,
-              passionate about building at the intersection of technology and
-              creativity.
-              <br />
-              Whether it's game development, AI, or web development, I love
-              using code to solve real-world problems and craft engaging digital
-              experiences. Go Blue〽️
+              {aboutMe?.text || "Loading..."}
             </Typography>
           </Stack>
         </Box>
@@ -659,16 +708,20 @@ export default function HomePage() {
             {Object.entries(skills).map(([category, skillArray]) => (
               <InfoCard
                 key={category}
-                title={category}   // Category is the card title
+                title={category} // Category is the card title
                 icons={skillArray.map(({ name, iconName, logoUrl }) => ({
                   Icon: logoUrl
                     ? () => (
-                      <img
-                        src={logoUrl}
-                        alt={name}
-                        style={{ width: 48, height: 48, objectFit: "contain" }}
-                      />
-                    )
+                        <img
+                          src={logoUrl}
+                          alt={name}
+                          style={{
+                            width: 48,
+                            height: 48,
+                            objectFit: "contain",
+                          }}
+                        />
+                      )
                     : () => <IconRenderer iconName={iconName} />,
                   label: name,
                   color: "#f8f1da",
@@ -676,9 +729,7 @@ export default function HomePage() {
                 isProject={false}
               />
             ))}
-
           </Box>
-
         </Box>
 
         <Box className="w-20 h-0.5 my-8 mx-auto bg-white/30 rounded transition-opacity duration-400" />
