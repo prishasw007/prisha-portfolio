@@ -151,22 +151,22 @@ export default function HomePage() {
   //     title: "WonderToon",
   //     description:
   //       "An AI-powered image generation web app built for AWS Hackathon 2025. This project integrates multiple AI services to create and enhance images based on user prompts.",
-  //     githubUrl: "https://github.com/prishasw007/AWS-Hackathon-2025",
-  //     websiteUrl: "https://your-backend-4r1z.onrender.com",
+  //     githubLink: "https://github.com/prishasw007/AWS-Hackathon-2025",
+  //     websiteLink: "https://your-backend-4r1z.onrender.com",
   //     text: "React.js | HTML | CSS | JavaScript | Google AI, OpenAI & Stability AI API",
   //   },
   //   {
   //     title: "Weather App",
   //     description:
   //       "A simple, responsive weather app built using HTML, CSS, and JS. Users can enter any city name and get real-time weather updates.",
-  //     githubUrl: "https://github.com/prishasw007/Weather-App",
+  //     githubLink: "https://github.com/prishasw007/Weather-App",
   //     text: "React.js | HTML | CSS | JavaScript | OpenWeather API",
   //   },
   //   {
   //     title: "Rocket Science",
   //     description:
   //       "This project simulates rocket trajectories using numerical methods to calculate velocity, height, and fuel optimization under varying conditions.",
-  //     githubUrl: "https://github.com/prishasw007/Rocket-Science",
+  //     githubLink: "https://github.com/prishasw007/Rocket-Science",
   //     text: "C++",
   //   },
   // ];
@@ -676,9 +676,9 @@ export default function HomePage() {
                 isProject={true}
                 title={project?.title}
                 description={project?.description}
-                githubUrl={project?.githubUrl}
-                websiteUrl={project?.websiteUrl}
-                text={project?.text}
+                githubLink={project?.githubLink}
+                websiteLink={project?.websiteLink}
+                languagesUsed={project?.languagesUsed}
               />
             ))}
           </Box>
