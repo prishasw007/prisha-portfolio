@@ -4,27 +4,10 @@ import {
   FaLinkedin,
   FaEnvelope,
   FaTimes,
-  FaJsSquare,
-  FaReact,
-  FaNodeJs,
-  FaGitAlt,
-  FaJava,
-  FaPython,
   FaSun,
   FaMoon,
   FaArrowAltCircleUp,
 } from "react-icons/fa";
-// import { TbBrandCSharp } from "react-icons/tb";
-// import { BiLogoVisualStudio } from "react-icons/bi";
-// import {
-//   SiCplusplus,
-//   SiHtml5,
-//   SiCss3,
-//   SiUnrealengine,
-//   SiTailwindcss,
-//   SiMui,
-// } from "react-icons/si";
-// import { FaUnity } from "react-icons/fa6";
 import { Typewriter } from "react-simple-typewriter";
 import ExperienceCard from "./ExperienceCard";
 import Button from "./Button";
@@ -36,7 +19,6 @@ import IconRenderer from "./IconRenderer";
 
 export default function HomePage() {
   const isMobile = useMediaQuery("(max-width:768px)");
-
   const [accountSettings, setAccountSettings] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -116,91 +98,6 @@ export default function HomePage() {
         console.error("Error fetching skills:", error);
       });
   }, []);
-
-  // const experiences = [
-  //   {
-  //     company: "Xoxoday",
-  //     logo: "./Xoxoday_Logo.jpg",
-  //     role: "Full Stack Web Development Intern",
-  //     location: "Bengaluru, India",
-  //     duration: "June 2025 – Present",
-  //     description:
-  //       "Building and scaling Loyalife through full-stack development using React, Node.js, and Express.",
-  //   },
-  //   {
-  //     company: "MaizeTix",
-  //     logo: "./maizetix.png",
-  //     role: "Software Developer",
-  //     location: "Ann Arbor, MI",
-  //     duration: "Jan 2025 – Present",
-  //     description:
-  //       "Built full-stack ticketing app MaizeTix with APIs, PostgreSQL, Stripe, and automated microservices integration.",
-  //   },
-  //   {
-  //     company: "Lotus Petal Foundation",
-  //     logo: "./lotus.png",
-  //     role: "Campaign Manager",
-  //     location: "Bengaluru, India",
-  //     duration: "May 2023 – Dec 2023",
-  //     description:
-  //       "Led the “Pad for Every Girl” campaign at Lotus Petal, raising $1700+ and promoting menstrual hygiene awareness in rural parts of Bengaluru.",
-  //   },
-  // ];
-  // const projects = [
-  //   {
-  //     title: "WonderToon",
-  //     description:
-  //       "An AI-powered image generation web app built for AWS Hackathon 2025. This project integrates multiple AI services to create and enhance images based on user prompts.",
-  //     githubLink: "https://github.com/prishasw007/AWS-Hackathon-2025",
-  //     websiteLink: "https://your-backend-4r1z.onrender.com",
-  //     text: "React.js | HTML | CSS | JavaScript | Google AI, OpenAI & Stability AI API",
-  //   },
-  //   {
-  //     title: "Weather App",
-  //     description:
-  //       "A simple, responsive weather app built using HTML, CSS, and JS. Users can enter any city name and get real-time weather updates.",
-  //     githubLink: "https://github.com/prishasw007/Weather-App",
-  //     text: "React.js | HTML | CSS | JavaScript | OpenWeather API",
-  //   },
-  //   {
-  //     title: "Rocket Science",
-  //     description:
-  //       "This project simulates rocket trajectories using numerical methods to calculate velocity, height, and fuel optimization under varying conditions.",
-  //     githubLink: "https://github.com/prishasw007/Rocket-Science",
-  //     text: "C++",
-  //   },
-  // ];
-
-  // const languageIcons = [
-  //   { Icon: FaJsSquare, label: "JavaScript", color: "#007396" },
-  //   { Icon: FaJava, label: "Java", color: "#007396" },
-  //   { Icon: FaPython, label: "Python", color: "#007396" },
-  //   { Icon: SiCplusplus, label: "C++", color: "#007396" },
-  //   { Icon: TbBrandCSharp, label: "C#", color: "#007396" },
-  //   { Icon: SiHtml5, label: "HTML", color: "#007396" },
-  //   { Icon: SiCss3, label: "CSS", color: "#007396" },
-  //   // add more languages here if you want
-  // ];
-
-  // const techIcons = [
-  //   { Icon: FaReact, label: "React", color: "#007396" },
-  //   { Icon: FaNodeJs, label: "Node.js", color: "#007396" },
-  //   { Icon: FaUnity, label: "Unity", color: "#007396" },
-  //   { Icon: SiUnrealengine, label: "Unreal Engine", color: "#007396" },
-  //   { Icon: SiMui, label: "MUI", color: "#007396" },
-  //   { Icon: SiTailwindcss, label: "Tailwind CSS", color: "#007396" },
-  // ];
-
-  // const toolsIcons = [
-  //   { Icon: FaGitAlt, label: "Git", color: "#007396" },
-  //   { Icon: BiLogoVisualStudio, label: "VS Code", color: "#007396" },
-  // ];
-
-  // const skillSections = [
-  //   { title: "Languages", icons: languageIcons },
-  //   { title: "Technologies & Frameworks", icons: techIcons },
-  //   { title: "Developer Tools", icons: toolsIcons },
-  // ];
 
   const [showScrollTop, setShowScrollTop] = useState(false);
 
