@@ -1,29 +1,47 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function useFetchData(url, transformData, delay = 0) {
+function useFetchData(url, transformData, onSuccess, enabled = true) {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [hasExecuted, setHasExecuted] = useState(false);
+  const [onSuccessCalled, setOnSuccessCalled] = useState(false);
 
   useEffect(() => {
-    let isMounted = true;
+    if (!enabled) {
+      // Reset execution when disabled
+      setHasExecuted(false);
+      setOnSuccessCalled(false);
+      return;
+    }
+
+    // Only execute if not already done
+    if (hasExecuted) return;
+
+    const controller = new AbortController(); // For cleanup/cancel
+
     const fetchData = async () => {
+      setLoading(true);
+      setError(null);
       try {
-        if(delay) await new Promise(res => setTimeout(res, delay)); // delay if passed
-        const res = await axios.get(url);
-        let fetchedData = res.data;
+        const response = await axios.get(url, { signal: controller.signal });
+        let fetchedData = response.data;
 
         if (transformData) {
           fetchedData = transformData(fetchedData);
         }
 
-        if (isMounted) {
-          setData(fetchedData);
-          setLoading(false);
+        setData(fetchedData);
+        setLoading(false);
+        setHasExecuted(true);
+
+        if (onSuccess && !onSuccessCalled) {
+          setOnSuccessCalled(true);
+          onSuccess();
         }
       } catch (err) {
-        if (isMounted) {
+        if (!controller.signal.aborted) {
           setError(err.message || "Error fetching data");
           setLoading(false);
         }
@@ -33,9 +51,9 @@ function useFetchData(url, transformData, delay = 0) {
     fetchData();
 
     return () => {
-      isMounted = false;
+      controller.abort(); // Cancel ongoing request on unmount
     };
-  }, [url, transformData, delay]);
+  }, [url, transformData, onSuccess, enabled, hasExecuted, onSuccessCalled]);
 
   return { data, loading, error };
 }

@@ -1,4 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+} from "react";
 import {
   FaGithub,
   FaLinkedin,
@@ -16,116 +21,94 @@ import InfoCard from "./InfoCard";
 import { Box, Typography, Stack } from "@mui/material";
 import axios from "axios";
 import IconRenderer from "./IconRenderer";
+import useFetchData from "./useFetchData";
 
 export default function HomePage() {
   const isMobile = useMediaQuery("(max-width:768px)");
-  const [accountSettings, setAccountSettings] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  const [aboutMe, setAboutMe] = useState(null);
-  const [experiences, setExperiences] = useState([]);
-  const [projects, setProjects] = useState([]);
-  const [skills, setSkills] = useState({
-    Languages: [],
-    "Frameworks and Technologies": [],
-    "Developer Tools": [],
-  });
-
-  // Fetch account settings
-  useEffect(() => {
-    const fetchAccountSettings = async () => {
-      try {
-        const res = await axios.get(
-          "http://localhost:5000/api/AccountSettings"
-        );
-        if (res.data.length > 0) {
-          setAccountSettings(res.data[0]);
-        }
-        setLoading(false);
-      } catch (err) {
-        setError("Failed to load account settings");
-        setLoading(false);
-      }
+  const transformAccountSettings = useCallback(
+    (data) => (data.length > 0 ? data[0] : null),
+    []
+  );
+  const transformAboutMe = useCallback(
+    (data) => (data.length > 0 ? data[0] : null),
+    []
+  );
+  const transformSkills = useCallback((skillsData) => {
+    const grouped = {
+      "Languages": [],
+      "Frameworks and Technologies": [],
+      "Developer Tools": [],
     };
-    fetchAccountSettings();
+    skillsData.forEach((skill) => {
+      if (grouped[skill?.category]) {
+        grouped[skill.category].push(skill);
+      }
+    });
+    return grouped;
   }, []);
 
-  // Fetch aboutMe
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/AboutMe")
-      .then((res) => {
-        setAboutMe(res.data[0] || null);
-      })
-      .catch((err) => console.error("Failed to load AboutMe:", err));
-  }, []);
+  // Fetch all data in parallel (enabled = true)
+  const {
+    data: accountSettings,
+    loading: loadingAccount,
+    error: errorAccount,
+  } = useFetchData(
+    "http://localhost:5000/api/AccountSettings",
+    transformAccountSettings,
+    null,
+    true
+  );
 
-  // Fetch experiences
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/Experiences")
-      .then((response) => setExperiences(response.data))
-      .catch((error) => console.error(error));
-  }, []);
+  const {
+    data: aboutMe,
+    loading: loadingAboutMe,
+    error: errorAboutMe,
+  } = useFetchData(
+    "http://localhost:5000/api/AboutMe",
+    transformAboutMe,
+    null,
+    true
+  );
 
-  // Fetch projects
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/Projects")
-      .then((response) => setProjects(response.data))
-      .catch((error) => console.error(error));
-  }, []);
+  const {
+    data: experiences,
+    loading: loadingExp,
+    error: errorExp,
+  } = useFetchData("http://localhost:5000/api/Experiences", null, null, true);
 
-  // Fetch skills
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/Skills")
-      .then((res) => {
-        const grouped = {
-          Languages: [],
-          "Frameworks and Technologies": [],
-          "Developer Tools": [],
-        };
-        res.data.forEach((skill) => {
-          if (grouped[skill.category]) {
-            grouped[skill.category].push(skill);
-          }
-        });
-        setSkills(grouped);
-      })
-      .catch((error) => {
-        console.error("Error fetching skills:", error);
-      });
-  }, []);
+  const {
+    data: projects,
+    loading: loadingProjects,
+    error: errorProjects,
+  } = useFetchData("http://localhost:5000/api/Projects", null, null, true);
 
+  const {
+    data: skills = {},
+    loading: loadingSkills,
+    error: errorSkills,
+  } = useFetchData(
+    "http://localhost:5000/api/Skills",
+    transformSkills,
+    null,
+    true
+  );
+
+  // Aggregate loading and error states
+  const loading =
+    loadingAccount ||
+    loadingAboutMe ||
+    loadingExp ||
+    loadingProjects ||
+    loadingSkills;
+
+  const error =
+    errorAccount || errorAboutMe || errorExp || errorProjects || errorSkills;
+
+  // Other component state
   const [showScrollTop, setShowScrollTop] = useState(false);
-
-  useEffect(() => {
-    console.log("useEffect running: attaching scroll listener");
-    const handleScroll = () => {
-      // console.log("Scroll Y:", window.scrollY);
-      if (window.scrollY > 200) {
-        setShowScrollTop(true);
-      } else {
-        setShowScrollTop(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   const [darkMode, setDarkMode] = useState(false);
-
-  const toggleDarkMode = () => {
-    setDarkMode((prev) => !prev);
-  };
-
+  const [showNav, setShowNav] = useState(true);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -133,49 +116,87 @@ export default function HomePage() {
   });
   const [formStatus, setFormStatus] = useState("");
 
-  const handleInputChange = (e) => {
+  // Event handlers
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 200);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
+  const toggleDarkMode = useCallback(() => {
+    setDarkMode((prev) => !prev);
+  }, []);
+
+  const handleToggle = useCallback(() => {
+    setShowNav((prev) => !prev);
+  }, []);
+
+  const handleInputChange = useCallback((e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  }, []);
 
-    if (!formData.name || !formData.email || !formData.message) {
-      setFormStatus("Please fill all fields.");
-      return;
-    }
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
 
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/api/ContactMessages",
-        formData
-      );
-      if (response.status === 201) {
-        setFormStatus("Thank you for your message!");
-        setFormData({ name: "", email: "", message: "" });
-      } else {
-        setFormStatus("Something went wrong. Please try again later.");
+      if (!formData.name || !formData.email || !formData.message) {
+        setFormStatus("Please fill all fields.");
+        return;
       }
-    } catch (error) {
-      console.error("Error sending message:", error);
-      setFormStatus("Error sending message. Please try again later.");
-    }
-  };
-  const [showNav, setShowNav] = useState(true);
 
-  const handleToggle = () => {
-    setShowNav((prev) => !prev);
-  };
+      try {
+        const response = await axios.post(
+          "http://localhost:5000/api/ContactMessages",
+          formData
+        );
+        if (response.status === 201) {
+          setFormStatus("Thank you for your message!");
+          setFormData({ name: "", email: "", message: "" });
+        } else {
+          setFormStatus("Something went wrong. Please try again later.");
+        }
+      } catch (error) {
+        console.error("Error sending message:", error);
+        setFormStatus("Error sending message. Please try again later.");
+      }
+    },
+    [formData]
+  );
 
-  const typewriterWords = accountSettings?.typewriterWords
-    ? accountSettings.typewriterWords.split(",").map((word) => word.trim())
-    : ["Software Engineer", "Michigan Wolverine", "Problem Solver", "Builder"];
+  // Memoize typewriter words to prevent recreation
+  const typewriterWords = useMemo(() => {
+    return accountSettings?.typewriterWords
+      ? accountSettings.typewriterWords.split(",").map((word) => word.trim())
+      : [
+        "Software Engineer",
+        "Michigan Wolverine",
+        "Problem Solver",
+        "Builder",
+      ];
+  }, [accountSettings?.typewriterWords]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-2xl text-[#f8f1da]">Loading...</div>
+      </div>
+    );
   }
+
   if (error) {
-    return <div>{error}</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-2xl text-red-500">{error}</div>
+      </div>
+    );
   }
 
   return (
@@ -296,31 +317,31 @@ export default function HomePage() {
               >
                 <a
                   href="#about"
-                  className="gradient-underline font-semibold text-[#f8f1da] transition duration-300 ease-in-out hover:text-[#836fe9] hover:scale-[1.05]"
+                  className="gradient-underline font-semibold text-[#f8f1da] transition duration-300 ease-in-out hover:scale-[1.05]"
                 >
                   About
                 </a>
                 <a
                   href="#experiences"
-                  className="gradient-underline font-semibold text-[#f8f1da] transition duration-300 ease-in-out hover:text-[#836fe9] hover:scale-[1.05]"
+                  className="gradient-underline font-semibold text-[#f8f1da] transition duration-300 ease-in-out hover:scale-[1.05]"
                 >
                   Experience
                 </a>
                 <a
                   href="#projects"
-                  className="gradient-underline font-semibold text-[#f8f1da] transition duration-300 ease-in-out hover:text-[#836fe9] hover:scale-[1.05]"
+                  className="gradient-underline font-semibold text-[#f8f1da] transition duration-300 ease-in-out hover:scale-[1.05]"
                 >
                   Projects
                 </a>
                 <a
                   href="#skills"
-                  className="gradient-underline font-semibold text-[#f8f1da] transition duration-300 ease-in-out hover:text-[#836fe9] hover:scale-[1.05]"
+                  className="gradient-underline font-semibold text-[#f8f1da] transition duration-300 ease-in-out hover:scale-[1.05]"
                 >
                   Skills
                 </a>
                 <a
                   href="#contact"
-                  className="gradient-underline font-semibold text-[#f8f1da] transition duration-300 ease-in-out hover:text-[#836fe9] hover:scale-[1.05]"
+                  className="gradient-underline font-semibold text-[#f8f1da] transition duration-300 ease-in-out hover:scale-[1.05]"
                 >
                   Contact Me
                 </a>
@@ -433,7 +454,7 @@ export default function HomePage() {
                 href={`mailto:${accountSettings.email}`}
                 aria-label="Email"
                 title="Email"
-                className="transition duration-300 ease-in-out hover:text-[#836fe9] hover:scale-[1.05] text-[#f8f1da]"
+                className="transition duration-300 ease-in-out hover:text-[#ffc107] hover:scale-[1.05] text-[#f8f1da]"
               >
                 <FaEnvelope size={50} />
               </a>
@@ -445,7 +466,7 @@ export default function HomePage() {
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
                 title="LinkedIn"
-                className="transition duration-300 ease-in-out hover:text-[#836fe9] hover:scale-[1.05] text-[#f8f1da]"
+                className="transition duration-300 ease-in-out hover:text-[#ffc107] hover:scale-[1.05] text-[#f8f1da]"
               >
                 <FaLinkedin size={50} />
               </a>
@@ -457,7 +478,7 @@ export default function HomePage() {
                 rel="noopener noreferrer"
                 aria-label="GitHub"
                 title="GitHub"
-                className="transition duration-300 ease-in-out hover:text-[#836fe9] hover:scale-[1.05] text-[#f8f1da]"
+                className="transition duration-300 ease-in-out hover:text-[#ffc107] hover:scale-[1.05] text-[#f8f1da]"
               >
                 <FaGithub size={50} />
               </a>
@@ -511,12 +532,12 @@ export default function HomePage() {
               component="p"
               sx={{
                 whiteSpace: "pre-line",
-                fontSize: "1.3rem", // exactly 1.3 rem = 20.8px
-                fontWeight: "bold", // font-weight: bold
-                fontFamily: "'Montserrat', sans-serif", // font family as in your CSS
-                lineHeight: 1.8, // line-height: 1.8
-                color: "#f8f1da", // text color
-                marginBottom: "3rem", // margin-bottom: 3rem
+                fontSize: "1.3rem",
+                fontWeight: "bold",
+                fontFamily: "'Montserrat', sans-serif",
+                lineHeight: 1.8,
+                color: "#f8f1da",
+                marginBottom: "3rem",
               }}
             >
               {aboutMe?.text || "Loading..."}
@@ -541,10 +562,9 @@ export default function HomePage() {
             Experience
           </Typography>
 
-          {/* flex-col on mobile, flex-row on md+ */}
           <Box className="flex flex-wrap justify-center gap-8 p-4 max-w-full">
             {experiences?.map((exp) => (
-              <ExperienceCard key={exp?.company} {...exp} />
+              <ExperienceCard key={exp?._id} {...exp} />
             ))}
           </Box>
         </Box>
@@ -580,6 +600,7 @@ export default function HomePage() {
             ))}
           </Box>
         </Box>
+
         <Box className="w-20 h-0.5 my-8 mx-auto bg-white/30 rounded transition-opacity duration-400" />
 
         {/* Skills Section */}
@@ -602,13 +623,14 @@ export default function HomePage() {
 
           <Box className="flex flex-wrap justify-center gap-8 p-4 max-w-full">
             {/* Loop through each category */}
-            {Object.entries(skills).map(([category, skillArray]) => (
-              <InfoCard
-                key={category}
-                title={category} // Category is the card title
-                icons={skillArray.map(({ name, iconName, logoUrl }) => ({
-                  Icon: logoUrl
-                    ? () => (
+            {skills &&
+              Object.entries(skills).map(([category, skillArray]) => (
+                <InfoCard
+                  key={category}
+                  title={category}
+                  icons={skillArray.map(({ name, iconName, logoUrl }) => ({
+                    Icon: logoUrl
+                      ? () => (
                         <img
                           src={logoUrl}
                           alt={name}
@@ -619,13 +641,13 @@ export default function HomePage() {
                           }}
                         />
                       )
-                    : () => <IconRenderer iconName={iconName} />,
-                  label: name,
-                  color: "#f8f1da",
-                }))}
-                isProject={false}
-              />
-            ))}
+                      : () => <IconRenderer iconName={iconName} />,
+                    label: name,
+                    color: "#f8f1da",
+                  }))}
+                  isProject={false}
+                />
+              ))}
           </Box>
         </Box>
 

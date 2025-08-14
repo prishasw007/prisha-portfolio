@@ -17,7 +17,7 @@ const iconSets = {
     bi: BiIcons,
 };
 
-const IconRenderer = ({ iconName, size = 55, color = "#f8f1da", hoverColor = "#ffc107", fontWeight = "bold" }) => {
+const IconRenderer = ({ iconName, size = 50, color = "#f8f1da", hoverColor = "#ffc107", fontWeight = "bold" }) => {
     const [isHovered, setIsHovered] = useState(false);
 
     if (!iconName || typeof iconName !== "string") return null;
