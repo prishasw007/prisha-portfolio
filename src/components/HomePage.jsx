@@ -23,6 +23,8 @@ import axios from "axios";
 import IconRenderer from "./IconRenderer";
 import useFetchData from "./useFetchData";
 
+const API_BASE = import.meta.env.VITE_API_URL;
+
 export default function HomePage() {
   const isMobile = useMediaQuery("(max-width:768px)");
 
@@ -54,7 +56,7 @@ export default function HomePage() {
     loading: loadingAccount,
     error: errorAccount,
   } = useFetchData(
-    "http://localhost:5000/api/AccountSettings",
+    `${API_BASE}/api/AccountSettings/`,
     transformAccountSettings,
     null,
     true
@@ -65,7 +67,7 @@ export default function HomePage() {
     loading: loadingAboutMe,
     error: errorAboutMe,
   } = useFetchData(
-    "http://localhost:5000/api/AboutMe",
+    `${API_BASE}/api/AboutMe`,
     transformAboutMe,
     null,
     true
@@ -75,20 +77,20 @@ export default function HomePage() {
     data: experiences,
     loading: loadingExp,
     error: errorExp,
-  } = useFetchData("http://localhost:5000/api/Experiences", null, null, true);
+  } = useFetchData(`${API_BASE}/api/Experiences`, null, null, true);
 
   const {
     data: projects,
     loading: loadingProjects,
     error: errorProjects,
-  } = useFetchData("http://localhost:5000/api/Projects", null, null, true);
+  } = useFetchData(`${API_BASE}/api/Projects`, null, null, true);
 
   const {
     data: skills = {},
     loading: loadingSkills,
     error: errorSkills,
   } = useFetchData(
-    "http://localhost:5000/api/Skills",
+    `${API_BASE}/api/Skills`,
     transformSkills,
     null,
     true
@@ -154,7 +156,7 @@ export default function HomePage() {
 
       try {
         const response = await axios.post(
-          "http://localhost:5000/api/ContactMessages",
+          `${API_BASE}/api/ContactMessages`,
           formData
         );
         if (response.status === 201) {
