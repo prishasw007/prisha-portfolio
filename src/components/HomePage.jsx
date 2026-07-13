@@ -104,10 +104,6 @@ export default function HomePage() {
   const [formStatus, setFormStatus] = useState("");
 
   // Event handlers
-  useEffect(() => {
-    document.body.classList.toggle("dark-mode", darkMode);
-    document.body.classList.toggle("light-mode", !darkMode);
-  }, [darkMode]);
   
   useEffect(() => {
     const handleScroll = () => {
@@ -338,32 +334,6 @@ export default function HomePage() {
 
             {/* Right Buttons (Dark Mode Toggle + Scroll to Top) */}
             <Box className="right-buttons">
-              <Button
-                onClick={toggleDarkMode}
-                aria-label="Toggle dark mode"
-                variant="text"
-                title={
-                  darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"
-                }
-                sx={{
-                  position: "fixed",
-                  top: "1rem",
-                  right: "1rem",
-                  zIndex: 2000,
-                  minWidth: 0,
-                  width: "40px",
-                  height: "40px",
-                  borderRadius: "50%",
-                  padding: 0,
-                  backgroundColor: "transparent",
-                  color: "inherit",
-                  "&:hover": {
-                    backgroundColor: "var(--card)",
-                  },
-                }}
-              >
-                {darkMode ? <FaSun size={24} /> : <FaMoon size={24} />}
-              </Button>
 
               {/* Scroll to Top Button */}
               {showScrollTop && (
