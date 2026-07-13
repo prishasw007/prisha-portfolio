@@ -104,7 +104,11 @@ export default function HomePage() {
   const [formStatus, setFormStatus] = useState("");
 
   // Event handlers
-
+  useEffect(() => {
+    document.body.classList.toggle("dark-mode", darkMode);
+    document.body.classList.toggle("light-mode", !darkMode);
+  }, [darkMode]);
+  
   useEffect(() => {
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 200);
