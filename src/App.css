@@ -2,80 +2,194 @@
 @tailwind components;
 @tailwind utilities;
 
-#main{
-  min-width: 100vw;
-  overflow-x: hidden;
+/* ===========================
+   THEME COLORS
+=========================== */
+
+:root {
+  /* Light Mode */
+  --bg: #FFECD1;
+  --text: #3E000C;
+
+  --card: #FFF7EB;
+  --border: rgba(62, 0, 12, 0.15);
+
+  --accent: #5B0014;
+  --accent-hover: #2B0008;
+}
+
+.dark-mode {
+  /* Dark Mode */
+  --bg: #3E000C;
+  --text: #FFECD1;
+
+  --card: #540011;
+  --border: rgba(255, 236, 209, 0.15);
+
+  --accent: #FFECD1;
+  --accent-hover: #FFFFFF;
+}
+
+/* ===========================
+   GLOBAL
+=========================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
-  background: linear-gradient(270deg, rgb(131, 10, 186), #5b0ecf,#386be4);
-  background-size: 100% 100%;
-  animation: calmGradient 20s ease infinite;
+  padding: 0;
+
+  overflow-x: hidden;
+
+  font-family: "Montserrat", sans-serif;
+
+  background: var(--bg);
+  color: var(--text);
+
+  transition:
+    background-color .35s ease,
+    color .35s ease;
 }
 
-/* Hero Section */
-#hero {
-  min-width: 100vw;
+#root {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+#main {
+  width: 100%;
   min-height: 100vh;
-  text-align: center;
+  overflow-x: hidden;
 }
 
-/* Gradient animation */
-@keyframes calmGradient {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
+#hero {
+  width: 100%;
+  min-height: 100vh;
 }
 
-.dark-mode {
-  background-color: #121212;
-  color: #e0e0e0;
+/* ===========================
+   TYPOGRAPHY
+=========================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span {
+  color: var(--text);
 }
 
-.dark-mode a {
-  color: #bb86fc;
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: .3s;
 }
 
-
-.dark-mode input,
-.dark-mode textarea {
-  background-color: #2c2c2c;
-  color: #eee;
-  border: 1px solid #555;
+a:hover {
+  color: var(--accent-hover);
 }
 
+/* ===========================
+   INPUTS
+=========================== */
+
+input,
+textarea {
+  background: var(--card);
+  color: var(--text);
+
+  border: 1px solid var(--border);
+
+  border-radius: 8px;
+  padding: .8rem;
+
+  transition: .3s;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(62, 0, 12, .55);
+}
+
+.dark-mode input::placeholder,
+.dark-mode textarea::placeholder {
+  color: rgba(255, 236, 209, .55);
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+button {
+  background: var(--text);
+  color: var(--bg);
+
+  border: none;
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  transition: .3s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  opacity: .9;
+}
+
+/* ===========================
+   CARDS
+=========================== */
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+
+  color: var(--text);
+
+  border-radius: 16px;
+}
+
+/* ===========================
+   UNDERLINE
+=========================== */
 
 .gradient-underline {
   position: relative;
-  padding-bottom: 2px;
+  display: inline-block;
   text-decoration: none;
 }
 
 .gradient-underline::after {
-  content: '';
+  content: "";
+
   position: absolute;
+
   left: 0;
-  bottom: 0;
-  height: 2px;
+  bottom: -2px;
+
   width: 100%;
-  background: linear-gradient(90deg, #836fe9, #2f99e4, rgb(203, 83, 237));
+  height: 2px;
+
+  background: var(--text);
+
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.4s ease-in-out;
+
+  transition: transform .3s ease;
 }
 
 .gradient-underline:hover::after {

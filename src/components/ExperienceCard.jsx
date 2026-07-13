@@ -107,14 +107,14 @@ function ExperienceCard({
             variant="h6"
             color="#f8f1da"
           >
-            🏢 {location}
+            <strong>Location:</strong>{location}
           </Typography>
           <Typography
             fontFamily="'Merriweather', serif"
             variant="h6"
             color="#f8f1da"
           >
-            📅 {duration}
+            <strong>Location:</strong> {duration}
           </Typography>
         </FlipCardFront>
         <FlipCardBack>

@@ -333,7 +333,7 @@ export default function HomePage() {
                   href="#projects"
                   className="gradient-underline font-semibold text-[#f8f1da] transition duration-300 ease-in-out hover:scale-[1.05]"
                 >
-                  Projects
+                  Designs
                 </a>
                 <a
                   href="#skills"
