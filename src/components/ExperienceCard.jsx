@@ -1,66 +1,73 @@
-import React from 'react';
-import { Box, Card, Typography, Avatar } from '@mui/material';
-import { styled } from '@mui/system';
+import React from "react";
+import { Box, Card, Typography, Avatar } from "@mui/material";
+import { styled } from "@mui/system";
 
 // Styled flip card container
 const FlipCard = styled(Box)(({ theme }) => ({
-  perspective: '1000px',
-  width: '100%',        // full width on mobile (stacked)
-  maxWidth: 300,        // max width on md+ screens
+  perspective: "1000px",
+  width: "100%", // full width on mobile (stacked)
+  maxWidth: 300, // max width on md+ screens
   height: 400,
-  margin: '1rem 0',     // vertical margin on mobile
-  cursor: 'pointer',
-  [theme.breakpoints.up('md')]: {
-    margin: '1rem',     // margin on all sides on desktop
+  margin: "1rem 0", // vertical margin on mobile
+  cursor: "pointer",
+  [theme.breakpoints.up("md")]: {
+    margin: "1rem", // margin on all sides on desktop
   },
-  '&:hover .flip-card-inner': {
-    transform: 'rotateY(180deg)',
+  "&:hover .flip-card-inner": {
+    transform: "rotateY(180deg)",
   },
 }));
 
 // Inner part that flips
 const FlipCardInner = styled(Box)({
-  position: 'relative',
-  width: '100%',
-  height: '100%',
-  textAlign: 'center',
-  transition: 'transform 0.6s',
-  transformStyle: 'preserve-3d',
-  boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+  position: "relative",
+  width: "100%",
+  height: "100%",
+  textAlign: "center",
+  transition: "transform 0.6s",
+  transformStyle: "preserve-3d",
+  boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
   borderRadius: 8,
 });
 
 // Front and back sides
 const FlipCardFront = styled(Card)({
-  position: 'absolute',
-  width: '18.75rem',
-  height: '25rem',
-  backfaceVisibility: 'hidden',
-  backgroundColor: '#1e1e2f',
+  position: "absolute",
+  width: "18.75rem",
+  height: "25rem",
+  backfaceVisibility: "hidden",
+  backgroundColor: "#1e1e2f",
   borderRadius: 8,
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',    // Center horizontally
-  padding: '1rem',
-  gap: '0.5rem',           // Spacing between avatar and texts
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center", // Center horizontally
+  padding: "1rem",
+  gap: "0.5rem", // Spacing between avatar and texts
 });
 
 const FlipCardBack = styled(Card)({
-  position: 'absolute',
-  width: '18.75rem',
-  height: '25rem',
-  backfaceVisibility: 'hidden',
-  backgroundColor: '#1e1e2f',
+  position: "absolute",
+  width: "18.75rem",
+  height: "25rem",
+  backfaceVisibility: "hidden",
+  backgroundColor: "#1e1e2f",
   borderRadius: 8,
-  transform: 'rotateY(180deg)',
-  padding: '1rem',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+  transform: "rotateY(180deg)",
+  padding: "1rem",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
 });
 
-function ExperienceCard({ companyName, logo, jobTitle, location, duration, description }) {
+function ExperienceCard({
+  companyName,
+  logo,
+  jobTitle,
+  location,
+  duration,
+  description,
+}) {
   return (
     <FlipCard>
       <FlipCardInner className="flip-card-inner">
@@ -68,8 +75,16 @@ function ExperienceCard({ companyName, logo, jobTitle, location, duration, descr
           <Avatar
             alt={`${companyName} logo`}
             src={logo}
-            sx={{ width: 56, height: 56, marginBottom: '1rem' }}
             variant="square"
+            sx={{
+              width: 56,
+              height: 56,
+              marginBottom: "1rem",
+              bgcolor: "transparent",
+              "& img": {
+                objectFit: "contain",
+              },
+            }}
           />
           <Typography
             fontFamily="'Merriweather', serif"
