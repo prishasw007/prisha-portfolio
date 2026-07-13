@@ -178,17 +178,17 @@ export default function HomePage() {
     return accountSettings?.typewriterWords
       ? accountSettings.typewriterWords.split(",").map((word) => word.trim())
       : [
-        "Software Engineer",
-        "Michigan Wolverine",
-        "Problem Solver",
-        "Builder",
+        "Marketing",
+        "Engineer",
+        "Strategy",
+        "Michigan Wolverine"
       ];
   }, [accountSettings?.typewriterWords]);
 
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="text-2xl text-[#f8f1da]">Loading...</div>
+        <div className="text-2xl text-[var(--text)]">Loading...</div>
       </div>
     );
   }
@@ -314,7 +314,7 @@ export default function HomePage() {
 
               {/* Desktop Nav (always shown on md and above) */}
               <Box
-                className="hidden md:flex gap-8 text-[1.75rem] text-[#f8f1da] "
+                className="hidden md:flex gap-8 text-[1.75rem] text-[var(--text)] "
                 style={{ fontFamily: "'Merriweather', serif" }}
               >
                 <a
