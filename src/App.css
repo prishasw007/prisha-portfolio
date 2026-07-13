@@ -15,13 +15,13 @@
   --border: rgba(62, 0, 12, 0.15);
 
   --accent: #5B0014;
-  --accent-hover: #2d020a;
+  --accent-hover: #2B0008;
 }
 
 .dark-mode {
   /* Dark Mode */
   --bg: #2d020a;
-  --text: #e7dccb;
+  --text: #FFECD1;
 
   --card: #480613;
   --border: rgba(255, 236, 209, 0.15);
