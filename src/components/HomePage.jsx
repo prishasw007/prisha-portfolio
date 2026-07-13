@@ -253,7 +253,7 @@ export default function HomePage() {
                   style={{
                     backgroundColor: "var(--bg)",
                     color: "var(--text)",
-                    fontFamily: "'DM Serif Display', serif",
+                    fontFamily: "'PT Serif', serif",
                   }}
                 >
                   <a
@@ -297,7 +297,7 @@ export default function HomePage() {
               {/* Desktop Nav (always shown on md and above) */}
               <Box
                 className="hidden md:flex gap-8 text-[1.75rem] text-[var(--text)] "
-                style={{ fontFamily: "'DM Serif Display', serif" }}
+                style={{ fontFamily: "'PT Serif', serif" }}
               >
                 <a
                   href="#about"
@@ -460,7 +460,7 @@ export default function HomePage() {
               pb: 0.3,
               fontSize: "3rem",
               fontWeight: "bold",
-              fontFamily: "'Merriweather', serif",
+              fontFamily: "'DM Serif Display', serif",
               color: "var(--text)",
               textAlign: "center",
             }}
@@ -515,7 +515,7 @@ export default function HomePage() {
             variant="h2"
             component="h2"
             className="mb-6 pb-1 text-center font-serif font-bold text-[3rem] text-[var(--text)]"
-            sx={{ fontFamily: "'Merriweather', serif" }}
+            sx={{ fontFamily: "'DM Serif Display', serif" }}
           >
             Experience
           </Typography>
@@ -539,7 +539,7 @@ export default function HomePage() {
             variant="h2"
             component="h2"
             className="mb-6 pb-1 text-center font-serif font-bold text-[3rem] text-[var(--text)]"
-            sx={{ fontFamily: "'Merriweather', serif" }}
+            sx={{ fontFamily: "'DM Serif Display', serif" }}
           >
             Projects
           </Typography>
@@ -571,7 +571,7 @@ export default function HomePage() {
               pb: 0.3,
               fontSize: "3rem",
               fontWeight: "bold",
-              fontFamily: "'Merriweather', serif",
+              fontFamily: "'DM Serif Display', serif",
               color: "var(--text)",
               textAlign: "center",
             }}
@@ -621,7 +621,7 @@ export default function HomePage() {
             variant="h2"
             component="h2"
             sx={{
-              fontFamily: "'Merriweather', serif",
+              fontFamily: "'DM Serif Display', serif",
               fontWeight: "bold",
               fontSize: "3rem",
               color: "var(--text)",
