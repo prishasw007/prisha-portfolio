@@ -1,9 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useMemo,
-} from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import {
   FaGithub,
   FaLinkedin,
@@ -30,15 +25,15 @@ export default function HomePage() {
 
   const transformAccountSettings = useCallback(
     (data) => (data.length > 0 ? data[0] : null),
-    []
+    [],
   );
   const transformAboutMe = useCallback(
     (data) => (data.length > 0 ? data[0] : null),
-    []
+    [],
   );
   const transformSkills = useCallback((skillsData) => {
     const grouped = {
-      "Languages": [],
+      Languages: [],
       "Frameworks and Technologies": [],
       "Developer Tools": [],
     };
@@ -59,19 +54,14 @@ export default function HomePage() {
     `${API_BASE}/api/AccountSettings/`,
     transformAccountSettings,
     null,
-    true
+    true,
   );
 
   const {
     data: aboutMe,
     loading: loadingAboutMe,
     error: errorAboutMe,
-  } = useFetchData(
-    `${API_BASE}/api/AboutMe`,
-    transformAboutMe,
-    null,
-    true
-  );
+  } = useFetchData(`${API_BASE}/api/AboutMe`, transformAboutMe, null, true);
 
   const {
     data: experiences,
@@ -89,12 +79,7 @@ export default function HomePage() {
     data: skills = {},
     loading: loadingSkills,
     error: errorSkills,
-  } = useFetchData(
-    `${API_BASE}/api/Skills`,
-    transformSkills,
-    null,
-    true
-  );
+  } = useFetchData(`${API_BASE}/api/Skills`, transformSkills, null, true);
 
   // Aggregate loading and error states
   const loading =
@@ -119,6 +104,9 @@ export default function HomePage() {
   const [formStatus, setFormStatus] = useState("");
 
   // Event handlers
+  useEffect(() => {
+    document.body.classList.toggle("dark-mode", darkMode);
+  }, [darkMode]);
   useEffect(() => {
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 200);
@@ -157,7 +145,7 @@ export default function HomePage() {
       try {
         const response = await axios.post(
           `${API_BASE}/api/ContactMessages`,
-          formData
+          formData,
         );
         if (response.status === 201) {
           setFormStatus("Thank you for your message!");
@@ -170,19 +158,14 @@ export default function HomePage() {
         setFormStatus("Error sending message. Please try again later.");
       }
     },
-    [formData]
+    [formData],
   );
 
   // Memoize typewriter words to prevent recreation
   const typewriterWords = useMemo(() => {
     return accountSettings?.typewriterWords
       ? accountSettings.typewriterWords.split(",").map((word) => word.trim())
-      : [
-        "Marketing",
-        "Engineer",
-        "Strategy",
-        "Michigan Wolverine"
-      ];
+      : ["Marketing", "Engineer", "Strategy", "Michigan Wolverine"];
   }, [accountSettings?.typewriterWords]);
 
   if (loading) {
@@ -207,10 +190,7 @@ export default function HomePage() {
         <title>Prisha Swaroop</title>
       </header>
 
-      <main
-        className={`container ${darkMode ? "dark-mode" : "light-mode"}`}
-        id="main"
-      >
+      <main className="container" id="main">
         <Box
           component="section"
           id="hero"
@@ -271,8 +251,12 @@ export default function HomePage() {
               {/* Mobile Nav Menu (overlay, only on small screens when open) */}
               {showNav && isMobile && (
                 <nav
-                  className="fixed inset-0 z-50 bg-[#1e1e1e] flex flex-col items-center justify-center gap-10 text-[1.75rem] text-[#f8f1da] md:hidden"
-                  style={{ fontFamily: "'Merriweather', serif" }}
+                  className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-10 text-[1.75rem] md:hidden"
+                  style={{
+                    backgroundColor: "var(--bg)",
+                    color: "var(--text)",
+                    fontFamily: "'Merriweather', serif",
+                  }}
                 >
                   <a
                     href="#about"
@@ -319,31 +303,31 @@ export default function HomePage() {
               >
                 <a
                   href="#about"
-                  className="gradient-underline font-semibold text-[#f8f1da] transition duration-300 ease-in-out hover:scale-[1.05]"
+                  className="gradient-underline font-semibold text-[var(--text)] transition duration-300 ease-in-out hover:scale-[1.05]"
                 >
                   About
                 </a>
                 <a
                   href="#experiences"
-                  className="gradient-underline font-semibold text-[#f8f1da] transition duration-300 ease-in-out hover:scale-[1.05]"
+                  className="gradient-underline font-semibold text-[var(--text)] transition duration-300 ease-in-out hover:scale-[1.05]"
                 >
                   Experience
                 </a>
                 <a
                   href="#projects"
-                  className="gradient-underline font-semibold text-[#f8f1da] transition duration-300 ease-in-out hover:scale-[1.05]"
+                  className="gradient-underline font-semibold text-[var(--text)] transition duration-300 ease-in-out hover:scale-[1.05]"
                 >
                   Designs
                 </a>
                 <a
                   href="#skills"
-                  className="gradient-underline font-semibold text-[#f8f1da] transition duration-300 ease-in-out hover:scale-[1.05]"
+                  className="gradient-underline font-semibold text-[var(--text)] transition duration-300 ease-in-out hover:scale-[1.05]"
                 >
                   Skills
                 </a>
                 <a
                   href="#contact"
-                  className="gradient-underline font-semibold text-[#f8f1da] transition duration-300 ease-in-out hover:scale-[1.05]"
+                  className="gradient-underline font-semibold text-[var(--text)] transition duration-300 ease-in-out hover:scale-[1.05]"
                 >
                   Contact Me
                 </a>
@@ -372,7 +356,7 @@ export default function HomePage() {
                   backgroundColor: "transparent",
                   color: "inherit",
                   "&:hover": {
-                    backgroundColor: "rgba(255,255,255,0.1)",
+                    backgroundColor: "var(--card)",
                   },
                 }}
               >
@@ -391,11 +375,11 @@ export default function HomePage() {
                     right: "1.5rem",
                     zIndex: 20000000,
                     backgroundColor: "transparent",
-                    color: "white",
+                    color: "var(--text)",
                     minWidth: "2rem",
                     minHeight: "2rem",
                     "&:hover": {
-                      backgroundColor: "rgba(255,255,255,0.1)",
+                      backgroundColor: "var(--card)",
                     },
                   }}
                 >
@@ -414,7 +398,7 @@ export default function HomePage() {
                 fontFamily: "'Merriweather', serif",
                 fontSize: "6rem",
                 fontWeight: 700,
-                color: "#f8f1da",
+                color: "var(--text)",
                 textAlign: "center",
                 lineHeight: 2,
                 mt: "120px",
@@ -431,7 +415,7 @@ export default function HomePage() {
                 fontSize: "3rem",
                 fontWeight: "bold",
                 fontFamily: "'Merriweather', serif",
-                color: "#f8f1da",
+                color: "var(--text)",
                 textAlign: "center",
               }}
             >
@@ -456,7 +440,7 @@ export default function HomePage() {
                 href={`mailto:${accountSettings.email}`}
                 aria-label="Email"
                 title="Email"
-                className="transition duration-300 ease-in-out hover:text-[#ffc107] hover:scale-[1.05] text-[#f8f1da]"
+                className="transition-all duration-300 text-[var(--text)] hover:text-[var(--accent)] hover:scale-110"
               >
                 <FaEnvelope size={50} />
               </a>
@@ -468,7 +452,7 @@ export default function HomePage() {
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
                 title="LinkedIn"
-                className="transition duration-300 ease-in-out hover:text-[#ffc107] hover:scale-[1.05] text-[#f8f1da]"
+                className="transition-all duration-300 text-[var(--text)] hover:text-[var(--accent)] hover:scale-110"
               >
                 <FaLinkedin size={50} />
               </a>
@@ -480,7 +464,7 @@ export default function HomePage() {
                 rel="noopener noreferrer"
                 aria-label="GitHub"
                 title="GitHub"
-                className="transition duration-300 ease-in-out hover:text-[#ffc107] hover:scale-[1.05] text-[#f8f1da]"
+                className="transition-all duration-300 text-[var(--text)] hover:text-[var(--accent)] hover:scale-110"
               >
                 <FaGithub size={50} />
               </a>
@@ -488,7 +472,7 @@ export default function HomePage() {
           </Box>
         </Box>
 
-        <Box className="w-20 h-0.5 my-8 mx-auto bg-white/30 rounded transition-opacity duration-400" />
+        <Box className="w-20 h-0.5 my-8 mx-auto bg-[var(--border)] rounded transition-opacity duration-400" />
 
         {/*About Me*/}
         <Box
@@ -505,7 +489,7 @@ export default function HomePage() {
               fontSize: "3rem",
               fontWeight: "bold",
               fontFamily: "'Merriweather', serif",
-              color: "#f8f1da",
+              color: "var(--text)",
               textAlign: "center",
             }}
           >
@@ -525,7 +509,7 @@ export default function HomePage() {
               component="img"
               src={aboutMe?.logo || "./photo1.jpeg"}
               alt="Prisha Swaroop"
-              className="w-full max-w-xs rounded-xl border-4 border-black shadow-lg"
+              className="w-full max-w-xs rounded-xl border-4 border-[var(--border)] shadow-lg"
               sx={{ alignSelf: { xs: "center", md: "flex-start" } }}
             />
 
@@ -538,7 +522,7 @@ export default function HomePage() {
                 fontWeight: "bold",
                 fontFamily: "'Montserrat', sans-serif",
                 lineHeight: 1.8,
-                color: "#f8f1da",
+                color: "var(--text)",
                 marginBottom: "3rem",
               }}
             >
@@ -547,7 +531,7 @@ export default function HomePage() {
           </Stack>
         </Box>
 
-        <Box className="w-20 h-0.5 my-8 mx-auto bg-white/30 rounded transition-opacity duration-400" />
+        <Box className="w-20 h-0.5 my-8 mx-auto bg-[var(--border)] rounded transition-opacity duration-400" />
 
         {/*Experience*/}
         <Box
@@ -558,7 +542,7 @@ export default function HomePage() {
           <Typography
             variant="h2"
             component="h2"
-            className="mb-6 pb-1 text-center font-serif font-bold text-[3rem] text-[#f8f1da]"
+            className="mb-6 pb-1 text-center font-serif font-bold text-[3rem] text-[var(--text)]"
             sx={{ fontFamily: "'Merriweather', serif" }}
           >
             Experience
@@ -571,7 +555,7 @@ export default function HomePage() {
           </Box>
         </Box>
 
-        <Box className="w-20 h-0.5 my-8 mx-auto bg-white/30 rounded transition-opacity duration-400" />
+        <Box className="w-20 h-0.5 my-8 mx-auto bg-[var(--border)] rounded transition-opacity duration-400" />
 
         {/* Projects Section */}
         <Box
@@ -582,7 +566,7 @@ export default function HomePage() {
           <Typography
             variant="h2"
             component="h2"
-            className="mb-6 pb-1 text-center font-serif font-bold text-[3rem] text-[#f8f1da]"
+            className="mb-6 pb-1 text-center font-serif font-bold text-[3rem] text-[var(--text)]"
             sx={{ fontFamily: "'Merriweather', serif" }}
           >
             Projects
@@ -603,7 +587,7 @@ export default function HomePage() {
           </Box>
         </Box>
 
-        <Box className="w-20 h-0.5 my-8 mx-auto bg-white/30 rounded transition-opacity duration-400" />
+        <Box className="w-20 h-0.5 my-8 mx-auto bg-[var(--border)] rounded transition-opacity duration-400" />
 
         {/* Skills Section */}
         <Box id="skills" className="w-full min-h-screen py-16 px-4">
@@ -616,7 +600,7 @@ export default function HomePage() {
               fontSize: "3rem",
               fontWeight: "bold",
               fontFamily: "'Merriweather', serif",
-              color: "#f8f1da",
+              color: "var(--text)",
               textAlign: "center",
             }}
           >
@@ -633,19 +617,19 @@ export default function HomePage() {
                   icons={skillArray.map(({ name, iconName, logoUrl }) => ({
                     Icon: logoUrl
                       ? () => (
-                        <img
-                          src={logoUrl}
-                          alt={name}
-                          style={{
-                            width: 48,
-                            height: 48,
-                            objectFit: "contain",
-                          }}
-                        />
-                      )
+                          <img
+                            src={logoUrl}
+                            alt={name}
+                            style={{
+                              width: 48,
+                              height: 48,
+                              objectFit: "contain",
+                            }}
+                          />
+                        )
                       : () => <IconRenderer iconName={iconName} />,
                     label: name,
-                    color: "#f8f1da",
+                    color: "var(--text)",
                   }))}
                   isProject={false}
                 />
@@ -653,13 +637,13 @@ export default function HomePage() {
           </Box>
         </Box>
 
-        <Box className="w-20 h-0.5 my-8 mx-auto bg-white/30 rounded transition-opacity duration-400" />
+        <Box className="w-20 h-0.5 my-8 mx-auto bg-[var(--border)] rounded transition-opacity duration-400" />
 
         {/*Contact Me*/}
         <Box
           component="section"
           id="contact"
-          className="py-16 px-4 text-[#1e1e2f] text-center"
+          className="py-16 px-4 text-[var(--text)] text-center"
         >
           <Typography
             variant="h2"
@@ -668,7 +652,7 @@ export default function HomePage() {
               fontFamily: "'Merriweather', serif",
               fontWeight: "bold",
               fontSize: "3rem",
-              color: "#f8f1da",
+              color: "var(--text)",
               marginBottom: "1.5rem",
             }}
           >
@@ -679,7 +663,7 @@ export default function HomePage() {
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <label
                 htmlFor="name"
-                className="text-xl text-[#f8f1da] text-left font-medium"
+                className="text-xl text-[var(--text)] text-left font-medium"
               >
                 Name
               </label>
@@ -690,13 +674,12 @@ export default function HomePage() {
                 value={formData.name}
                 onChange={handleInputChange}
                 required
-                className="w-full py-3 px-4 text-base border border-gray-300 rounded-lg bg-white text-gray-800 transition duration-300 ease-in-out
-          focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-300"
+                className="w-full py-3 px-4"
               />
 
               <label
                 htmlFor="email"
-                className="text-xl text-[#f8f1da] text-left font-medium"
+                className="text-xl text-[var(--text)] text-left font-medium"
               >
                 Email
               </label>
@@ -707,13 +690,12 @@ export default function HomePage() {
                 value={formData.email}
                 onChange={handleInputChange}
                 required
-                className="w-full py-3 px-4 text-base border border-gray-300 rounded-lg bg-white text-gray-800 transition duration-300 ease-in-out
-          focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-300"
+                className="w-full py-3 px-4"
               />
 
               <label
                 htmlFor="message"
-                className="text-xl text-[#f8f1da] text-left font-medium"
+                className="text-xl text-[var(--text)] text-left font-medium"
               >
                 Message
               </label>
@@ -724,21 +706,18 @@ export default function HomePage() {
                 value={formData.message}
                 onChange={handleInputChange}
                 required
-                className="w-full py-3 px-4 text-base border border-gray-300 rounded-lg bg-white text-gray-800 transition duration-300 ease-in-out resize-vertical
-          focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-300"
+                className="w-full py-3 px-4"
               ></textarea>
 
               <Button
                 sx={{
-                  background:
-                    "linear-gradient(90deg, #836fe9, #2f99e4, rgb(203, 83, 237))",
+                  backgroundColor: "var(--text)",
+                  color: "var(--bg)",
                   borderRadius: "1rem",
                   mt: 2,
                   fontSize: "1.5rem",
-                  color: "white",
                   "&:hover": {
-                    background:
-                      "linear-gradient(90deg, #2f99e4, #836fe9, rgb(203, 83, 237))",
+                    backgroundColor: "var(--accent)",
                   },
                 }}
                 type="submit"
@@ -752,7 +731,7 @@ export default function HomePage() {
               <Typography
                 component="p"
                 sx={{
-                  color: "#f8f1da",
+                  color: "var(--text)",
                   fontWeight: "bold",
                   mt: 4,
                   textAlign: "center",
