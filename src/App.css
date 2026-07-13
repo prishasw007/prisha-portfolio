@@ -55,10 +55,6 @@ body {
 
   background: var(--bg);
   color: var(--text);
-
-  transition:
-    background-color .35s ease,
-    color .35s ease;
 }
 
 #root {

@@ -106,7 +106,9 @@ export default function HomePage() {
   // Event handlers
   useEffect(() => {
     document.body.classList.toggle("dark-mode", darkMode);
+    document.body.classList.toggle("light-mode", !darkMode);
   }, [darkMode]);
+  
   useEffect(() => {
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 200);
