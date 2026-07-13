@@ -7,15 +7,14 @@
 =========================== */
 
 :root{
-  /* Dark Mode */
-  --bg: #2d020a;
-  --text: #FFECD1;
+  --bg:#FFECD1;
+  --text: #2d020a ;
 
   --card: #480613;
   --border: rgba(255, 236, 209, 0.15);
 
-  --accent: #e7dccb;
-  --accent-hover: #FFFFFF;
+  --accent: #2d020a;
+  --accent-hover: #2d020a;
 }
 
 /* ===========================
