@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import {
-  FaGithub,
+  FaInstagram,
   FaLinkedin,
   FaEnvelope,
   FaTimes,
@@ -33,7 +33,7 @@ export default function HomePage() {
   );
   const transformSkills = useCallback((skillsData) => {
     const grouped = {
-      Languages: [],
+      "Languages": [],
       "Frameworks and Technologies": [],
       "Developer Tools": [],
     };
@@ -253,7 +253,7 @@ export default function HomePage() {
                   style={{
                     backgroundColor: "var(--bg)",
                     color: "var(--text)",
-                    fontFamily: "'Merriweather', serif",
+                    fontFamily: "'DM Serif Display', serif",
                   }}
                 >
                   <a
@@ -297,7 +297,7 @@ export default function HomePage() {
               {/* Desktop Nav (always shown on md and above) */}
               <Box
                 className="hidden md:flex gap-8 text-[1.75rem] text-[var(--text)] "
-                style={{ fontFamily: "'Merriweather', serif" }}
+                style={{ fontFamily: "'DM Serif Display', serif" }}
               >
                 <a
                   href="#about"
@@ -367,7 +367,7 @@ export default function HomePage() {
               variant="h1"
               component="h1"
               sx={{
-                fontFamily: "'Merriweather', serif",
+                fontFamily: "'DM Serif Display', serif",
                 fontSize: "6rem",
                 fontWeight: 700,
                 color: "var(--text)",
@@ -386,7 +386,7 @@ export default function HomePage() {
                 pb: 0.3,
                 fontSize: "3rem",
                 fontWeight: "bold",
-                fontFamily: "'Merriweather', serif",
+                fontFamily: "'PT Serif', serif",
                 color: "var(--text)",
                 textAlign: "center",
               }}
@@ -438,7 +438,7 @@ export default function HomePage() {
                 title="GitHub"
                 className="transition-all duration-300 text-[var(--text)] hover:text-[var(--accent)] hover:scale-110"
               >
-                <FaGithub size={50} />
+                <FaInstagram size={50} />
               </a>
             )}
           </Box>
