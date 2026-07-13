@@ -8,25 +8,25 @@
 
 .light-mode {
   /* Light Mode */
-  --bg: #FFECD1;
-  --text: #3E000C;
+  --bg: #e7dccb;
+  --text: #2d020a;
 
-  --card: #FFF7EB;
+  --card: #f1e3cd;
   --border: rgba(62, 0, 12, 0.15);
 
   --accent: #5B0014;
-  --accent-hover: #2B0008;
+  --accent-hover: #2d020a;
 }
 
 .dark-mode {
   /* Dark Mode */
-  --bg: #3E000C;
-  --text: #FFECD1;
+  --bg: #2d020a;
+  --text: #e7dccb;
 
-  --card: #540011;
+  --card: #480613;
   --border: rgba(255, 236, 209, 0.15);
 
-  --accent: #FFECD1;
+  --accent: #e7dccb;
   --accent-hover: #FFFFFF;
 }
 
