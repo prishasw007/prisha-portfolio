@@ -6,7 +6,7 @@
    THEME COLORS
 =========================== */
 
-:root {
+.light-mode {
   /* Light Mode */
   --bg: #FFECD1;
   --text: #3E000C;
