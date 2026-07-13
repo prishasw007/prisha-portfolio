@@ -4,6 +4,7 @@ export default {
     "./index.html",
     "./src/**/*.{js,jsx,ts,tsx}"
   ],
+  safelist: ["light-mode", "dark-mode"],
   theme: {
     extend: {},
   },
