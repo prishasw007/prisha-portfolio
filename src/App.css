@@ -6,19 +6,8 @@
    THEME COLORS
 =========================== */
 
-.light-mode {
-  /* Light Mode */
-  --bg: #e7dccb;
-  --text: #370a12;
 
-  --card: #f1e3cd;
-  --border: rgba(62, 0, 12, 0.15);
-
-  --accent: #5B0014;
-  --accent-hover: #370a12;
-}
-
-.dark-mode {
+:root {
   /* Dark Mode */
   --bg: #2d020a;
   --text: #FFECD1;
