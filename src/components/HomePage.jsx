@@ -163,7 +163,7 @@ export default function HomePage() {
   const typewriterWords = useMemo(() => {
     return accountSettings?.typewriterWords
       ? accountSettings.typewriterWords.split(",").map((word) => word.trim())
-      : ["Marketing", "Engineer", "Strategy", "Michigan Wolverine"];
+      : ["Marketing", "Engineer", "Strategy", "Wolverine"];
   }, [accountSettings?.typewriterWords]);
 
   if (loading) {
@@ -253,7 +253,7 @@ export default function HomePage() {
                   style={{
                     backgroundColor: "var(--bg)",
                     color: "var(--text)",
-                    fontFamily: "'PT Serif', serif",
+                    fontFamily: "'Inter', sans-serif",
                   }}
                 >
                   <a
@@ -297,7 +297,7 @@ export default function HomePage() {
               {/* Desktop Nav (always shown on md and above) */}
               <Box
                 className="hidden md:flex gap-8 text-[1.75rem] text-[var(--text)] "
-                style={{ fontFamily: "'PT Serif', serif" }}
+                style={{ fontFamily: "'Inter', sans-serif" }}
               >
                 <a
                   href="#about"
@@ -367,7 +367,7 @@ export default function HomePage() {
               variant="h1"
               component="h1"
               sx={{
-                fontFamily: "'DM Serif Display', serif",
+                fontFamily: "'Playfair Display', serif",
                 fontSize: "6rem",
                 fontWeight: 700,
                 color: "var(--text)",
@@ -386,7 +386,7 @@ export default function HomePage() {
                 pb: 0.3,
                 fontSize: "3rem",
                 fontWeight: "bold",
-                fontFamily: "'PT Serif', serif",
+                fontFamily: "'Inter', sans-serif",
                 color: "var(--text)",
                 textAlign: "center",
               }}
@@ -395,7 +395,7 @@ export default function HomePage() {
                 words={typewriterWords}
                 loop={true}
                 cursor
-                cursorStyle="|"
+                cursorStyle="."
                 typeSpeed={80}
                 deleteSpeed={50}
                 delaySpeed={1500}
