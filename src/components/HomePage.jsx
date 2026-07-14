@@ -684,7 +684,6 @@ export default function HomePage() {
 
               <Button
                 sx={{
-                  backgroundColor: "var(--text)",
                   color: "var(--bg)",
                   borderRadius: "1rem",
                   mt: 2,
