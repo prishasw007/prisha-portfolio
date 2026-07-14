@@ -394,8 +394,6 @@ export default function HomePage() {
               <Typewriter
                 words={typewriterWords}
                 loop={true}
-                cursor
-                cursorStyle="."
                 typeSpeed={80}
                 deleteSpeed={50}
                 delaySpeed={1500}
