@@ -388,7 +388,7 @@ export default function HomePage() {
                 fontFamily: "'Inter', sans-serif",
                 color: "var(--text)",
                 textAlign: "center",
-                minHeight: "1.2em",
+                minHeight: "1.5em",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
