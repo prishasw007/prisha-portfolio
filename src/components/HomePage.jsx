@@ -33,7 +33,7 @@ export default function HomePage() {
   );
   const transformSkills = useCallback((skillsData) => {
     const grouped = {
-      "Languages": [],
+      Languages: [],
       "Frameworks and Technologies": [],
       "Developer Tools": [],
     };
@@ -104,7 +104,7 @@ export default function HomePage() {
   const [formStatus, setFormStatus] = useState("");
 
   // Event handlers
-  
+
   useEffect(() => {
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 200);
@@ -334,7 +334,6 @@ export default function HomePage() {
 
             {/* Right Buttons (Dark Mode Toggle + Scroll to Top) */}
             <Box className="right-buttons">
-
               {/* Scroll to Top Button */}
               {showScrollTop && (
                 <Button
@@ -389,6 +388,10 @@ export default function HomePage() {
                 fontFamily: "'Inter', sans-serif",
                 color: "var(--text)",
                 textAlign: "center",
+                minHeight: "1.2em",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
               <Typewriter
