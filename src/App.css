@@ -8,13 +8,13 @@
 
 :root{
   --bg: linear-gradient(135deg, #2d020a 0%, #4d0909 50%, #3E000c 100%);
-  --text: #FFECD1;
+  --text: #FFBDC5;
 
   --card: #2d020a;
   --border: rgba(255, 236, 209, 0.15);
 
-  --accent: #e7dccb;
-  --accent-hover: #FFECD1;
+  --accent: #FFBDC5;
+  --accent-hover: #FFBDC5;
 }
 
 /* ===========================
