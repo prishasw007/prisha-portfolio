@@ -7,7 +7,7 @@
 =========================== */
 
 :root{
-  --bg: #2d020a;
+  --bg: linear-gradient(135deg, #2d020a 0%, #2c070e 50%, #3a020c 100%);
   --text: #FFECD1;
 
   --card: #2d020a;
