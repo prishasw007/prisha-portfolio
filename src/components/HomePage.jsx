@@ -193,21 +193,9 @@ export default function HomePage() {
           component="section"
           id="hero"
           aria-label="Introduction"
-          sx={{ px: 2, pt: "6rem", pb: 6 }}
+          sx={{ px: 2, py: 6 }}
         >
-          <Box
-            className="flex justify-between items-center w-full gap-4 px-5"
-            sx={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              width: "100%",
-              zIndex: 1000,
-              backgroundColor: "var(--bg)",
-              py: 2,
-              boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-            }}
-          >
+          <Box className="relative flex justify-between items-center max-w-full gap-4 left-5">
             {/* Left Buttons (Hamburger / Close + Nav) */}
             <Box
               className="left-buttons"
@@ -696,14 +684,12 @@ export default function HomePage() {
 
               <Button
                 sx={{
-                  backgroundColor: "#FFECD1",
-                  color: "#2d020a",
+                  color: "var(--bg)",
                   borderRadius: "1rem",
                   mt: 2,
                   fontSize: "1.5rem",
                   "&:hover": {
-                    backgroundColor: "#FFECD1",
-                    opacity: 0.9,
+                    backgroundColor: "var(--accent)",
                   },
                 }}
                 type="submit"
