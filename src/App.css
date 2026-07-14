@@ -7,14 +7,14 @@
 =========================== */
 
 :root{
-  --bg: linear-gradient(135deg, #2d020a 0%, #4d0909 50%, #3E000c 100%);
-  --text: #f87aef;
+  --bg: linear-gradient(135deg, #2d020a 0%, #4D0909 50%, #3E000c 100%);
+  --text: #FFECD1;
 
   --card: #2d020a;
   --border: rgba(255, 236, 209, 0.15);
 
-  --accent: #f87aef;
-  --accent-hover: #f87aef;
+  --accent: #e7dccb;
+  --accent-hover: #FFECD1;
 }
 
 /* ===========================
